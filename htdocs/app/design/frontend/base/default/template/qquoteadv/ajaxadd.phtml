@@ -1,0 +1,15 @@
+<?php $product = $this->getData('product'); ?>
+<?php $errors = $this->getData('errors'); ?>
+
+<h1><?php echo $product->name; ?></h1>
+<img src="<?php echo Mage::helper('catalog/image')->init($product, 'image')->resize(150) ?>"/>
+
+<div style="clear:both;"/><br/>
+<button type="button" onclick="javascript: cancelMsg();"
+        title="<?php echo Mage::helper('qquoteadv')->__('Continue Shopping'); ?>" class="button btn-cart">
+    <span><span><?php echo Mage::helper('qquoteadv')->__('Continue Shopping'); ?></span></span></button>
+<button type="button" onclick="document.location.href='<?php echo Mage::getUrl('qquoteadv/index'); ?>'"
+        title="<?php echo Mage::helper('qquoteadv')->__('View Quote'); ?>" class="button btn-cart">
+    <span><span><?php echo Mage::helper('qquoteadv')->__('View Quote'); ?></span></span></button>
+
+

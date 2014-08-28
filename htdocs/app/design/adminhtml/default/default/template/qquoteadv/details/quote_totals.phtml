@@ -1,0 +1,81 @@
+<div class="entry-edit">
+    <?php
+
+    //$collectTotals is set in product.phtml and then this template is included
+    if ($collectTotals) {
+    if ($collectedTotals = $quoteModel->getTotalsArray()) {
+        $_qTotals->setCollectedTotals($collectedTotals);
+        $_qTotals->updateTotals($quoteModel->getData('salesrule'));
+        if ($_qTotals->getData('no_profit') === true) {
+            $quoteModel->setData('no_profit', true);
+            }
+        }
+    }
+    ?>
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Quote Totals') ?></h4>
+    </div>
+
+    <div class="order-totals">
+        <?php
+        //$collectTotals is set in product.phtml and then this template is included
+        if ($collectTotals): ?>
+        <table width="100%" cellspacing="0" cellpadding="8">
+            <?php
+            if (count($quoteModel->getQuoteTotals()) > 0):
+                $quoteTotals = $_qTotals->sortQuoteTotals($quoteModel->getQuoteTotals());
+                $style = 'style="font-weight:bold;"';
+                ?>
+                <tfoot>
+                <?php foreach ($quoteTotals['totalFoot'] as $totalFoot):
+					if ($totalFoot['label'] != 'Grand Total (excl. Tax)'):						
+						if (isset($totalFoot['code']) && $totalFoot['code'] == 'profit') {
+							$styleProfit = 'style="border-top:solid 1px #CCC;"';
+						} else {
+							$styleProfit = '';
+	
+						}
+						?>
+	
+						<tr <?php if (isset($totalFoot['strong']) && $totalFoot['strong'] == 1) {
+							echo $style;
+						} ?>>
+							<td class="label" colspan="1" <?php echo $styleProfit; ?>>
+                            	<?php if ($totalFoot['code'] == 'grand_total') {
+									echo 'Grand Total';
+								}
+								else {
+									echo $totalFoot['label']; 
+								}
+								 
+								?>
+							</td>
+							<td class="price" <?php echo $styleProfit; ?>>
+								<?php echo Mage::helper('core')->formatPrice($totalFoot['value']); ?>
+							</td>
+						</tr>
+					<?php endif; ?>
+                <?php endforeach; ?>
+                </tfoot>
+                <tbody>
+					<?php foreach ($quoteTotals['totalBody'] as $totalBody): ?>
+                    	<?php if (isset($totalBody['code']) && $totalBody['code'] == 'subtotal'): ?>
+                        	<tr>
+                                <td class="label" colspan="1" <?php echo $styleSubtotal; ?>>
+                                <?php //echo $totalBody['label']; ?>
+                                Subtotal
+                                </td>
+                                <td class="price" <?php echo $styleSubtotal; ?>>
+                                    <?php echo Mage::helper('core')->formatPrice($totalBody['value']); ?>
+                                </td>
+                            </tr>
+						<?php endif; ?>
+                    <?php endforeach; ?>  	
+                </tbody>
+            <?php endif; ?>
+        </table>
+         <?php endif; ?>
+        <?php include('buttons.phtml'); ?>
+
+    </div>
+</div>

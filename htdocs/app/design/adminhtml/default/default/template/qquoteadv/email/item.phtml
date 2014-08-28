@@ -1,0 +1,107 @@
+<?php $item = $this->getItem(); ?>
+<?php $product = Mage::getModel('catalog/product')->load($item->getProductId()); ?>
+<?php if ($product->getTypeId() == 'bundle' || $product->getTypeId() == 'configurable'): ?>
+    <tr>
+        <td align="left" valign="top" style="padding:3px 9px">
+            <strong><?php echo $this->htmlEscape($product->getName()) ?></strong>
+            <?php
+            $product->setStoreId($item->getStoreId() ? $item->getStoreId() : 1);
+            $quoteByProduct = Mage::helper('qquoteadv')->getQuoteItem($product, $item->getAttribute());
+            foreach ($quoteByProduct->getAllItems() as $_unit) {
+                if ($_unit->getProductId() == $product->getId()) {
+                    echo $this->getItemHtml($_unit);
+                }
+            }
+            ?>
+        </td>
+        <td align="left" valign="top"
+            style="padding:3px 9px"><?php echo $this->htmlEscape($product->getSku($this)) ?></td>
+        <?php
+        $reqData = $this->getRequestedProductData($item->getId(), $item->getQuoteId());
+        $prices = $reqData['ownerPrices'];
+        $aQty = $reqData['aQty'];
+        ?>
+        <td align="center" valign="top" style="padding:3px 9px;">
+            <?php if (count($aQty)): ?>
+                <?php foreach ($aQty as $key => $value): ?>
+                    <div style="height:25px;" align="center"><?php echo $value; ?></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </td>
+        <td align="center" valign="top" style="padding:3px 9px; ">
+            <?php if (count($prices)): ?>
+                <?php foreach ($prices as $key => $value): ?>
+                    <div style="height:25px;"><?php echo Mage::helper('checkout')->formatPrice($value); ?></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </td>
+        <?php $merge = array_combine($aQty, $prices); ?>
+        <td align="right" valign="top" style="padding:3px 9px;">
+            <?php foreach ($merge as $qty => $price): ?>
+                <?php $total = Mage::helper('checkout')->formatPrice($qty * $price); ?>
+                <div style="height:25px;"><?php echo $total; ?></div>
+            <?php endforeach; ?>
+        </td>
+    </tr>
+<?php else: ?>
+    <tr>
+        <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <strong style="font-size:11px;"><?php echo $this->htmlEscape($product->getName()) ?></strong>
+
+            <?php  $superAttribute = Mage::helper('qquoteadv')->getSimpleOptions($product, unserialize($item->getAttribute()));
+            if ($superAttribute):
+                echo '<dl style="margin:0; padding:0;">';
+                foreach ($superAttribute as $option => $value): ?>
+                    <dt><strong><em><?php echo $option ?></em></strong></dt>
+                    <dd style="margin:0; padding:0 0 0 9px;">
+                        <?php echo (!empty($value)) ? $value : nl2br($this->escapeHtml($value)) ?>
+                    </dd>
+                <?php endforeach;
+                echo '</dl>';
+            endif; ?>
+        </td>
+        <td align="left" valign="top"
+            style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $this->htmlEscape($product->getSku($this)) ?></td>
+        <?php
+        $reqData = $this->getRequestedProductData($item->getId(), $item->getQuoteId());
+        $prices = $reqData['ownerPrices'];
+        $aQty = $reqData['aQty'];
+        ?>
+        <td align="center" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <?php if (count($aQty)): ?>
+                <?php foreach ($aQty as $key => $value): ?>
+                    <div style="height:25px;" align="center"><?php echo $value; ?></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </td>
+        <td align="center" valign="top" style="font-size:11px; padding:3px 9px;  border-bottom:1px dotted #CCCCCC;">
+            <?php if (count($prices)): ?>
+                <?php foreach ($prices as $key => $value): ?>
+                    <div style="height:25px;"><?php echo Mage::helper('checkout')->formatPrice($value); ?></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </td>
+        <?php $merge = array_combine($aQty, $prices); ?>
+        <td align="right" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <?php foreach ($merge as $qty => $price): ?>
+                <?php $total = Mage::helper('checkout')->formatPrice($qty * $price); ?>
+                <div style="height:25px;"><?php echo $total; ?></div>
+            <?php endforeach; ?>
+        </td>
+    </tr>
+<?php endif; ?>
+
+<?php $clientRequest = $item->getClientRequest(); ?>
+<?php if (is_string($clientRequest) and urlencode($clientRequest) == "%C2%A0") $clientRequest = NULL; //for some reason a space is returned if more then one clientrequest in quote  ?>
+<?php if ($clientRequest): ?>
+    <tr>
+        <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <strong style="font-size:11px;">Notes with Product:</strong>
+        </td>
+        <td colspan="2" align="left" valign="top"
+            style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo nl2br($item->getClientRequest()) ?></td>
+        <td style="border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+        <td style="border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+
+    </tr>
+<?php endif; ?>    

@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv/tooltiphelper.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv/massupdate.js</name>
+            </action>
+        </reference>
+    </adminhtml_system_config_edit>
+    <adminhtml_qquoteadv_index>
+        <reference name="content">
+            <block type="qquoteadv/adminhtml_qquoteadv" name="qquote"/>
+        </reference>
+    </adminhtml_qquoteadv_index>
+
+    <adminhtml_qquoteadv_edit>
+        <reference name="head">
+            <action method="addCss">
+                <link>css/qquoteadv/edit.css</link>
+            </action>
+        </reference>
+    </adminhtml_qquoteadv_edit>
+
+    <!--
+        <qquoteadv_adminhtml_qquoteadv_edit>
+            <reference name="head">
+               <action method="addCss"><link>css/qquoteadv/edit.css</link></action>
+            </reference>
+        </qquoteadv_adminhtml_qquoteadv_edit>
+    -->
+    <!--
+    Email layouts section
+    -->
+    <qquoteadv_email_qquoteadv_items>
+        <block type="qquoteadv/adminhtml_email_items" name="qquoteadv_items" template="qquoteadv/email/items.phtml">
+            <block type="qquoteadv/adminhtml_email_item" name="qquoteadv_item" as="qquoteadv_item" template="qquoteadv/email/item.phtml">
+                <action method="addItemRender">
+                    <type>bundle</type>
+                    <block>qquoteadv/item_renderer_bundle</block>
+                    <template>qquoteadv/email/items/bundle.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>configurable</type>
+                    <block>qquoteadv/item_renderer_configurable</block>
+                    <template>qquoteadv/email/items/configurable.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>simple</type>
+                    <block>qquoteadv/item_renderer</block>
+                    <template>qquoteadv/email/items/default.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>grouped</type>
+                    <block>qquoteadv/item_renderer</block>
+                    <template>qquoteadv/email/items/default.phtml</template>
+                </action>
+            </block>
+        </block>
+    </qquoteadv_email_qquoteadv_items>
+    <default>
+        <reference name="notifications">
+            <block type="qquoteadv/adminhtml_notifications" name="qquoteadv_notifications" template="qquoteadv/notifications.phtml"></block>
+        </reference>
+    </default>
+    <adminhtml_sales_order_view>
+        <reference name="order_info">
+            <action method="setTemplate">
+                <template>qquoteadv/sales/order/view/info.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+    <!-- C2Quote Customer -->
+    <adminhtml_qquoteadv_quotes>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="qquoteadv/adminhtml_qquoteadv_grid" name="adminhtml.qquoteadv.grid.quotes"/>
+        </block>
+    </adminhtml_qquoteadv_quotes>
+    <!--
+        <qquoteadv_adminhtml_qquoteadv_quotes>
+            <block type="core/text_list" name="root" output="toHtml">
+                <block type="qquoteadv/adminhtml_qquoteadv_grid" name="adminhtml.qquoteadv.grid.quotes"/>
+            </block>
+        </qquoteadv_adminhtml_qquoteadv_quotes>
+    -->
+    <!-- C2Quote Customer -->
+</layout>

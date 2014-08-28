@@ -1,0 +1,62 @@
+<?php $_quote = $this->getQuote(); ?>
+<table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;">
+    <thead>
+    <tr>
+        <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Item') ?></th>
+        <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Name') ?></th>
+        <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Sku') ?></th>
+        <th align="center" bgcolor="#EAEAEA"
+            style="font-size:13px; padding:3px 9px"><?php echo $this->__('Tier/Qty') ?></th>
+
+        <?php if (!$this->isSetAutoProposal()): ?>
+            <th align="right" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px">&nbsp;</th>
+        <?php else: ?>
+            <th align="center" bgcolor="#EAEAEA"
+                style="font-size:13px; padding:3px 9px"><?php echo $this->__('Price') ?></th>
+            <th align="right" bgcolor="#EAEAEA"
+                style="font-size:13px; padding:3px 9px"><?php echo $this->__('Subtotal') ?></th>
+        <?php endif; ?>
+
+    </tr>
+    </thead>
+    <?php $i = 0;
+    foreach ($this->getAllItems() as $_item): ?>
+        <?php if ($_item->getParentItem()) continue; else $i++; ?>
+        <tbody<?php echo $i % 2 ? ' bgcolor="#F6F6F6"' : '' ?>>
+        <?php echo $this->getLayout()->getBlock('qquoteadv_item')->setItem($_item)->toHtml(); ?>
+        </tbody>
+    <?php endforeach; ?>
+
+    <?php if ($this->isSetAutoProposal()):
+        $colspan = 5; ?>
+        <tbody>
+        <tr>
+            <td colspan="<?php echo($colspan + 1) ?>" style="padding:0px 0px;" align="right">
+                <table cellspacing="0" cellpadding="0" border="0" style="margin:0px; padding:0px;">
+                    <tbody>
+                    <?php Mage::register('current_quote', $_quote);
+                    echo $this->getChildHtml('quote_totals');
+                    Mage::unregister('current_quote');?>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+        <tbody>
+        <tr>
+            <td colspan="<?php echo($colspan + 1) ?>" style="padding:20px 6px 7px;  height: 44px;" align="right">
+                <?php $style = "background:url(" . $this->getSkinUrl('images/qquoteadv/checkout-btn.png') . ") no-repeat #ffa400; width: 151px; height: 21px; display:block; color: white; font-size: 15px; font-weight:bold; font-family: Arial, Helvetica, sans-serif; font-size: 15px; text-decoration:none; padding: 12px 24px 11px 24px;"; ?>
+                <a href="<?php echo Mage::helper('qquoteadv')->getAutoLoginUrl($_quote); ?>"
+                   style="<?php echo $style ?>">
+                    <?php echo $this->__('Proceed to Checkout'); ?>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="<?php echo($colspan + 1) ?>" style="padding:0px 6px 20px 6px; " align="right">
+                <a href="<?php echo Mage::helper('qquoteadv')->getAutoLoginUrl($_quote, 1); ?>"><?php echo $this->__('Visit customer dashboard for more options'); ?></a>
+            </td>
+        </tr>
+        </tbody>
+    <?php endif; ?>
+</table>

@@ -1,0 +1,28 @@
+<?php
+$_helper = Mage::helper('bundle/catalog_product_configuration');
+$_options = $_helper->getOptions($this->getItem());
+if (is_array($_options)) {
+    ?>
+    <dl style="margin:0; padding:0;">
+        <?php foreach ($_options as $_option) : ?>
+            <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
+            <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
+
+            <?php if (isset($_option['print_value'])) : ?>
+                <dd style="margin:0; padding:0 0 0 9px;"><?php echo $this->htmlEscape($_option['print_value']) ?></dd>
+            <?php else: ?>
+                <dd style="margin:0; padding:0 0 0 9px;"><?php echo $_formatedOptionValue['value'] ?>
+                    <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                        <div>
+                            <dl style="margin:0; padding:0;">
+                                <dt><strong><em><?php echo $this->htmlEscape($_option['label']) ?></em></strong></dt>
+                                <dd style="margin:0; padding:0 0 0 9px;"><?php echo $_formatedOptionValue['full_view'] ?></dd>
+                            </dl>
+                        </div>
+                    <?php endif; ?>
+                </dd>
+            <?php endif; ?>
+
+        <?php endforeach; ?>
+    </dl>
+<?php } ?>

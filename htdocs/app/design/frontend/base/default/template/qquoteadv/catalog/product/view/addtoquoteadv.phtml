@@ -1,0 +1,65 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php if (!Mage::helper('qquoteadv')->isEnabled()) return ''; ?>
+<?php
+$_product = $this->getProduct();
+$hideCartButton = false;
+$hideQuoteButton = Mage::helper('qquoteadv')->hideQuoteButton($_product);
+if (Mage::getConfig()->getModuleConfig('Ophirah_Not2Order')->is('active', 'true') && $_product->getData('quotemode_conditions') > 0) {
+    $hideCartButton = Mage::helper('not2order')->autoHideCartButton($hideQuoteButton);
+}
+
+$url = $this->helper('qquoteadv/catalog_product_data')->getUrlAdd2Qquoteadv($_product);
+$isAjax = Mage::getStoreConfig('qquoteadv/layout/ajax_add');
+$actionQuote = "addQuote('" . $url . "', $isAjax );";
+
+// Quick Quote Data
+if (Mage::getStoreConfig('qquoteadv/quick_quote/quick_quote_mode') == "1") {
+    // Storing current action in session
+    // Ajax needs to be disabled
+    Mage::getSingleton('customer/session')->setData('quickQuoteUrl', "addQuote('" . $url . "', 0 );");
+    $actionQuote = "$('quickQuoteWrapper').show()";
+}
+?>
+
+<fieldset class="add-to-cart-box">
+    <legend><?php echo $this->__('Add Items to Cart') ?></legend>
+    <?php if ($_product->getData('allowed_to_quotemode') == 1 && $hideQuoteButton === false): ?>
+        <?php if (!$_product->isGrouped() && (!$_product->isSaleable() || $hideCartButton === true)): ?>
+            <span class="qty-box"><label for="qty"><?php echo $this->__('Qty') ?>:</label>
+	    	<input name="qty" type="text" class="input-text qty" id="qty" maxlength="12"
+                   value="<?php echo $this->getProductDefaultQty() * 1 ?>"/></span>
+        <?php endif; ?>
+        <button type="button" title="<?php echo Mage::helper('qquoteadv')->__("Add to Quote"); ?>"
+                class="button btn-cart btn-quote"
+                onclick="<?php echo $actionQuote; ?>">
+            <span><span><?php echo Mage::helper('qquoteadv')->__("Add to Quote"); ?></span></span></button>
+
+    <?php endif; ?>
+</fieldset>
+<br/>
+

@@ -1,0 +1,11 @@
+<layout version="0.1.0">
+	<default>
+		<reference name="content">
+		</reference>
+	</default>
+	<complexworld_index_index>
+		<reference name="content">
+			<block type="complexworld/monblock" name="complexworld_monblock" template="complexworld/complexworld.phtml" />
+		</reference>
+	</complexworld_index_index>
+</layout>

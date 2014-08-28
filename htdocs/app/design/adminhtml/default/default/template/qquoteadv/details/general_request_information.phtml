@@ -1,0 +1,192 @@
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-account"><?php echo $this->__('Quotation Management') ?></h4>
+    </div>
+    <fieldset>
+        <table class="form-list" cellspacing="0">
+            <tbody>
+            <tr>
+                <?php
+                // Setting Variables
+                $style = '';
+                $enableCheck = '';
+
+                $checked = ($quoteModel->getData('alt_checkout')) ? ' checked="checked"' : '';
+                $altCheckoutUrl = Mage::getStoreConfig('qquoteadv/quote_advanced/checkout_alternative', $quoteModel->getData('store_id'));
+                $disabled = ($altCheckoutUrl > 0) ? $this->__('Use alternative url') : $this->__(' (disabled)');
+
+                if (!$altCheckoutUrl > 0 && $checked != '') {
+                    $style = 'color:#999;';
+                    $enableCheck = 'disabled';
+                }
+
+                // Create HTML
+                if ($altCheckoutUrl || $enableCheck == 'disabled'):
+                    echo '<td class="label"><label style="' . $style . ';">' . $this->__('Checkout') . '</label></td>';
+                    echo '<td><input style="margin-left:126px;" ' . $enableCheck . ' type="checkbox" name="alt_checkout" ' . $checked . '/>';
+                    echo '<label style="margin-left:6px;' . $style . '">' . $disabled . '</label>';
+                    echo '</td>';
+                endif;?>
+            </tr>
+
+            <tr>
+                <td class="label"><label><?php echo $this->__('Expiry Date') ?></label></td>
+                <?php
+                $expiry = Mage::helper('qquoteadv')->getExpiryDate($quoteModel->getData('quote_id'));
+                $m = substr($expiry, 5, 2);
+                $d = substr($expiry, 8, 2);
+                $y = substr($expiry, 0, 4);
+                $expiryFormatted = $m . "/" . $d . "/" . $y;
+                ?>
+                <td>
+                    <div style="margin-top:3px;"><input type="text" style="width:70px;" name="expiry" id="expiry"
+                                                        value="<?php echo $expiryFormatted; ?>"/>
+                        <img id="expiry_trig" style="position:relative; top: 1px;"
+                             src="<?php echo $this->getSkinUrl('images/grid-cal.gif'); ?>"/>
+
+                        <?php $checked = ($quoteModel->getData('no_expiry')) ? ' checked="checked"' : ''; ?>
+
+                        <input style="margin-left:30px;" type="checkbox" name="no_expiry" <?php echo $checked; ?> />
+                        <label style="margin-left:3px;"><?php echo $this->__('Do not notify customer'); ?></label>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <?php $disabled = (Mage::getStoreConfig('qquoteadv/general/send_reminder') > 0) ? '' : $this->__(' (disabled)'); ?>
+                <td class="label"><label><?php echo $this->__('Reminder Date' . $disabled) ?></label></td>
+                <?php
+                $reminder = Mage::helper('qquoteadv')->getReminderDate($quoteModel->getData('quote_id'));
+                $m = substr($reminder, 5, 2);
+                $d = substr($reminder, 8, 2);
+                $y = substr($reminder, 0, 4);
+                $reminderFormatted = $m . "/" . $d . "/" . $y;
+                ?>
+                <td>
+                    <div style="margin-top:3px;"><input type="text" style="width:70px;" name="reminder" id="reminder"
+                                                        value="<?php echo $reminderFormatted; ?>"/>
+                        <img id="reminder_trig" style="position:relative; top: 1px;"
+                             src="<?php echo $this->getSkinUrl('images/grid-cal.gif'); ?>"/>
+
+                        <?php $checked = ($quoteModel->getData('no_reminder')) ? ' checked="checked"' : ''; ?>
+
+                        <input style="margin-left:30px;" type="checkbox" name="no_reminder" <?php echo $checked; ?> />
+                        <label style="margin-left:3px;"><?php echo $this->__('Do not notify customer'); ?></label>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo $this->__('Follow Up Date') ?></label></td>
+                <?php
+                $followup = $quoteModel->getData('followup');
+                $m = substr($followup, 5, 2);
+                $d = substr($followup, 8, 2);
+                $y = substr($followup, 0, 4);
+                $followupFormatted = ($quoteModel->getData('followup')) ? $m . "/" . $d . "/" . $y : '';
+                ?>
+                <td>
+                    <div style="margin-top:3px;"><input type="text" style="width:70px;" name="followup" id="followup"
+                                                        value="<?php echo $followupFormatted; ?>"/>
+                        <img id="followup_trig" style="position:relative; top: 1px;"
+                             src="<?php echo $this->getSkinUrl('images/grid-cal.gif'); ?>"/>
+
+                        <?php
+                        $checked = ($quoteModel->getData('no_followup')) ? ' checked="checked"' : '';
+                        if ($quoteModel->getData('followup')): ?>
+                            <input style="margin-left:30px;" type="checkbox"
+                                   name="no_followup" <?php echo $checked; ?> />
+                            <label style="margin-left:3px;"><?php echo $this->__('No Follow Up date'); ?></label>
+                        <?php endif; ?>
+
+                    </div>
+                </td>
+            </tr>
+            <?php /* // Can be used with options from System.xml. Currently not used ?>
+                <tr>
+                    <td class="label"><label><?php echo $this->__('Show Item Price') ?></label></td>
+                    <td><div style="margin-top:3px;">
+                            <?php  $checked = ($quoteModel->getData('itemprice'))?' checked="checked"': ''; ?>
+                            <input style="margin-left:0px;" type="checkbox" name="itemprice" <?php echo $checked; ?> />
+                        </div>
+                    </td>
+                </tr>
+                <?php */
+
+            // To show prices, itemsprice needs to be "on"
+            echo '<input type="hidden" id="itemprice" name="itemprice" value="on"/>';
+            ?>
+
+            <?php //$name = trim($this->getAdminName($quoteModel->getData('user_id')));?>
+            <?php //$email = trim(Mage::helper('qquoteadv')->getAdminEmail($quoteModel->getData('quote_id')));?>
+            <?php $admins = Mage::helper('qquoteadv')->getAdmins(); ?>
+
+            <tr>
+                <td class="label" style="padding:10px 0px;"><label><?php echo $this->__('Assigned To') ?></label></td>
+                <td style="padding:10px 0px;">
+                    <select
+                        name="assigned_to" <?php echo Mage::getSingleton('admin/session')->isAllowed('sales/qquoteadv/salesrep') ? '' : 'disabled="disabled"'; ?>>
+                        <?php if (!$quoteModel->getData('user_id') or $quoteModel->getData('user_id') == 0) {
+                            $quoteModel->setData('user_id', Mage::getSingleton('admin/session')->getUser()->getId());
+                        }
+                        foreach ($admins as $admin):
+                            $selected = ($quoteModel->getData('user_id') == $admin->getData('user_id')) ? "selected = selected" : '';?>
+                            <option value="<?php echo $admin->getData('user_id'); ?>" <?php echo $selected; ?> >
+                                <?php echo $admin->getData('firstname') . " " . $admin->getData('lastname'); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo $this->__('General Comment') ?></label></td>
+                <td>
+                    <textarea style="width:98%;" name="client_request" id="client_request"
+                              rows="4"><?php echo $this->htmlEscape($quoteModel->getData('client_request')) ?></textarea>
+                </td>
+            </tr>
+
+            <?php if (Mage::getStoreConfig('qquoteadv/sales_representatives/internal_comment') != 0): ?>
+                <tr>
+                    <td class="label"><label><?php echo $this->__('Internal Comment') ?></label></td>
+                    <td style="padding:10px 0px;">
+                        <textarea style="width:98%;" name="internal_comment" id="internal_comment"
+                                  rows="4"><?php echo $this->htmlEscape($quoteModel->getData('internal_comment')) ?></textarea>
+
+                        <p class="note"><span><?php echo $this->__('Not visible for customers'); ?></span></p>
+                    </td>
+                </tr>
+            <?php endif; ?>
+
+            <tbody>
+        </table>
+
+    </fieldset>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    Calendar.setup({
+        inputField: "expiry",
+        ifFormat: "%m/%d/%Y",
+        showTime: false,
+        button: "expiry_trig",
+        align: "Bl",
+        singleClick: true
+    })
+    Calendar.setup({
+        inputField: "reminder",
+        ifFormat: "%m/%d/%Y",
+        showTime: false,
+        button: "reminder_trig",
+        align: "Bl",
+        singleClick: true
+    })
+    Calendar.setup({
+        inputField: "followup",
+        ifFormat: "%m/%d/%Y",
+        showTime: false,
+        button: "followup_trig",
+        align: "Bl",
+        singleClick: true
+    })
+</script>

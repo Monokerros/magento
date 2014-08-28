@@ -1,0 +1,90 @@
+<style>
+    td.file_label {
+        width: 50px;
+        vertical-align: top;
+    }
+
+    .file_title {
+        min-width: 300px;
+    }
+</style>
+<div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('File Upload') ?></h4>
+</div>
+
+<div class="grip np ">
+    <div class="fieldset">
+        <table cellspacing="0" class="form-list" border="0">
+            <tbody>
+            <tr>
+                <td class="file_label use-default"><label for="file_title"
+                                                          class="normal"><?php echo $this->__('Title'); ?></label></td>
+                <td style="vertical-align:middle"><input maxlength="150" class="file_title" id="file_title"
+                                                         name="file_title" type="text"
+                                                         value="<?php if ($quoteModel->getData('file_title')) {
+                                                             echo $this->htmlEscape($quoteModel->getData('file_title'));
+                                                         } ?>"/>
+                </td>
+            </tr>
+            <?php
+            $path = Mage::helper('qquoteadv')->isValidHttp($quoteModel->getData('path'));
+            $urlPath = $filePath = '';
+            if (empty($path)) {
+                $filePath = $quoteModel->getData('path');
+            } else {
+                $urlPath = $path;
+            }
+            ?>
+
+            <tr>
+                <td class="fl use-default"><input id="idUrl" name="path_info" type="radio" value="url"
+                        <?php if (!empty($urlPath)): ?> checked="checked" <?php endif ?> />&nbsp;<?php echo $this->__('Url'); ?>
+                </td>
+
+                <td style="vertical-align:middle"><input class="file_title" type="text" name="url_path" id="url_path"
+                                                         onclick="if($('idUrl')) $('idUrl').checked=true; if($('idFile')) $('idFile').checked=false;"
+                                                         value="<?php if (!empty($urlPath)) {
+                                                             echo $quoteModel->getData('path');
+                                                         } ?>"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="fl use-default"><input id="idFile" name="path_info" type="radio" value="file"
+                        <?php if (!empty($filePath)): ?> checked="checked" <?php endif ?>/>&nbsp;<?php echo $this->__('File'); ?>
+                </td>
+
+                <td style="vertical-align:middle"><input id="file_path" type="file" name="file_path"
+                                                         onclick="if($('idUrl')) $('idUrl').checked=false; if($('idFile')) $('idFile').checked=true;">
+                    <?php
+                    if (!empty($filePath)) {
+                        $path = Mage::getModel('qquoteadv/qqadvcustomer')->getUploadPath(array('dir' => $quoteModel->getData('quote_id'), 'file' => $filePath));
+                        echo '<br /><a href="' . $path . '">' . $filePath . '</a>';
+                    }
+                    ?>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function checkUploadTitle() {
+        if ($('url_path').value != "" || $('file_path').value != "") {
+            if (!$('file_title').hasClassName('required-entry')) {
+                $('file_title').addClassName('required-entry');
+            }
+            var xForm = new varienForm('edit_form', '');
+            if (xForm.validator && !xForm.validator.validate()) {
+                $('loading-mask').hide();
+                return false;
+            }
+        } else {
+            if ($('file_title').hasClassName('required-entry')) {
+                $('file_title').removeClassName('required-entry');
+            }
+        }
+        return true;
+    }
+</script>

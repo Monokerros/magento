@@ -1,0 +1,46 @@
+<?php   $_product = Mage::getModel("catalog/product")->load($this->getProduct()->getId());
+$addCartUrl = $this->getAddToCartUrl($_product);
+$html = '';
+$ordermode = '';
+$quotemode = '';
+$btnQuoteTitle = $this->__("Add to Quote");
+$btnCartTitle = $this->__('Add to Cart');
+
+$allowed_to_quotemode = $_product->getAllowedToQuotemode();
+
+$hideCartButton = false;
+$hideQuoteButton = Mage::helper('qquoteadv')->hideQuoteButton($_product);
+if (Mage::getConfig()->getModuleConfig('Ophirah_Not2Order')->is('active', 'true') && $_product->getData('quotemode_conditions') > 0) {
+    $hideCartButton = Mage::helper('not2order')->autoHideCartButton($hideQuoteButton);
+}
+
+if ($_product->isSaleable() && $hideCartButton === false) {
+    $cartBtn = '<button type="button" title="%s" class="button btn-cart" onclick="setLocation(\'%s\')"><span><span>%s</span></span></button>';
+    $ordermode = sprintf($cartBtn, $btnCartTitle, $addCartUrl, $btnCartTitle);
+} else {
+    if (!$_product->isAvailable()) :
+        $ordermode = '<p class="availability out-of-stock"><span>' . $this->__('Out of stock') . '</span></p>';
+    endif;
+}
+
+if ($allowed_to_quotemode == 1 && $hideQuoteButton === false) {
+
+    $isAjax = Mage::getStoreConfig('qquoteadv/layout/ajax_add');
+    if ($isAjax) {
+        $actionQuote = "addQuoteList('%s', $isAjax );";
+    } else {
+        $actionQuote = "setLocation('%s');";
+    }
+
+    $quoteBtn = '<button title="%s" type="button" class="button btn-cart" onclick="' . $actionQuote . '"><span><span>%s</span></span></button>';
+    if ($_product->getTypeId() == 'grouped') {
+        $url = $_product->getProductUrl() . "?c2qredirect=1";
+    } else {
+        $url = $this->helper('qquoteadv/catalog_product_data')->getUrlAdd2QquoteadvList($_product);
+    }
+
+    $quotemode = sprintf($quoteBtn, $btnQuoteTitle, $url, $btnQuoteTitle);
+}
+
+$html .= "<p>$ordermode $quotemode</p>";
+echo $html;

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <qquoteadv translate="label" module="crmaddon">
+            <label>Cart2Quote</label>
+            <sort_order>310</sort_order>
+        </qquoteadv>
+    </tabs>
+    <sections>
+        <crmaddon translate="label" module="crmaddon">
+            <label>CRMaddon</label>
+            <tab>qquoteadv</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label comment" module="crmaddon">
+                    <label>General</label>
+                    <comment><![CDATA[
+<div class="box"> 
+<p class="grand-total"><b>CRM addon for Cart2Quote (C2Q_CRMaddon_v0.1.2) provided by <a href="http://www.ophirah.nl">Ophirah | e-commerce projects</a></b></p>
+For documentation and support visit <a href="http://cart2quote.zendesk.com">cart2quote.zendesk.com</a>  or contact: <a href="mailto:support@cart2quote.com">support@cart2quote.com</a>
+</div>
+]]>
+                    </comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Enable / disable Cart2Quote CRM addon extension]]></comment>
+                        </enabled>
+                    </fields>
+                </general>
+                <emails translate="label" module="crmaddon">
+                    <label>Email templates</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <crmaddon_container translate="label comment">
+                            <label>CRM Email container Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>250</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select email conainer for CRM]]></comment>
+                        </crmaddon_container>
+                    </fields>
+                    <fields>
+                        <crmaddon_shortmsg translate="label comment">
+                            <label>Number of short message characters</label>
+                            <frontend_type>text</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>350</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select the number of characters to show in short message view]]></comment>
+                        </crmaddon_shortmsg>
+                    </fields>
+                </emails>
+            </groups>
+        </crmaddon>
+    </sections>
+</config>

@@ -1,0 +1,57 @@
+<?php
+/**
+ *  Cart2Quote
+ *
+ *  Template File Totals
+ */
+?>
+<table id="shopping-cart-totals-table">
+    <col/>
+    <col width="1"/>
+    <tfoot>
+    <?php
+    foreach ($this->_totals as $total):
+        if ($total->getCode() != 'base_grandtotal' && $total->getArea() == 'footer'):
+            ?>
+
+            <tr>
+                <th colspan="<?php echo $total->getColspan(); ?>" style="<?php echo $total->getStyle() ?>"
+                    class="a-right">
+                    <?php if ($total->getStrong()): ?><strong><?php endif; ?>
+                        <?php echo $total->getLabel(); ?>
+                        <?php if ($total->getStrong()): ?></strong><?php endif; ?>
+                </th>
+                <td style="<?php echo $total->getStyle() ?>" class="a-right">
+                    <?php if ($total->getStrong()): ?><strong><?php endif; ?>
+                        <?php echo $this->formatValue($total); ?>
+                        <?php if ($total->getStrong()): ?></strong><?php endif; ?>
+                </td>
+            </tr>
+        <?php endif;
+    endforeach;
+    ?>
+    </tfoot>
+    <tbody>
+    <?php foreach ($this->_totals as $total):
+        if ($total->getCode() != 'base_grandtotal' && $total->getArea() == 'body'):
+            ?>
+
+            <tr>
+                <th colspan="<?php echo $total->getColspan(); ?>" style="<?php echo $total->getStyle() ?>"
+                    class="a-right">
+                    <?php if ($total->getStrong()): ?><strong><?php endif; ?>
+                        <?php echo $total->getLabel(); ?>
+                        <?php if ($total->getStrong()): ?></strong><?php endif; ?>
+                </th>
+                <td style="<?php echo $total->getStyle() ?>" class="a-right">
+                    <?php if ($total->getStrong()): ?><strong><?php endif; ?>
+                        <?php echo $this->formatValue($total); ?>
+                        <?php if ($total->getStrong()): ?></strong><?php endif; ?>
+                </td>
+            </tr>
+        <?php endif;
+    endforeach;
+    ?>
+    </tbody>
+</table>
+

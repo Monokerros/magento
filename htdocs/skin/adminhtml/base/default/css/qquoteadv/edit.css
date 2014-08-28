@@ -1,0 +1,205 @@
+
+#lightbox1 {
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 2px 2px 6px 2px #33;
+    box-shadow: 2px 2px 6px 2px #333;
+    border: 0px solid #d4d4d4;
+    overflow: visible;
+
+}
+
+#quoteadv-box-header {
+    background: #ffffff; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUxJSIgc3RvcC1jb2xvcj0iI2Y0ZjRmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNmU2ZTYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #ffffff 0%, #f4f4f4 51%, #e6e6e6 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(51%, #f4f4f4), color-stop(100%, #e6e6e6)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%, #f4f4f4 51%, #e6e6e6 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%, #f4f4f4 51%, #e6e6e6 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%, #f4f4f4 51%, #e6e6e6 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%, #f4f4f4 51%, #e6e6e6 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0); /* IE6-8 */
+
+    color: #888888;
+    padding: 5px;
+
+    border-top: 2px solid #c7c7c7;
+    border-right: 2px solid #c7c7c7;
+    -moz-box-shadow: 0px 1px 5px rgba(68, 68, 68, 0.6);
+    -webkit-box-shadow: 0px 1px 5px rgba(68, 68, 68, 0.6);
+    box-shadow: 0px 1px 5px rgba(68, 68, 68, 0.6);
+
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    position: relative;
+
+    padding: 10px 15px;
+    padding-right: 5px;
+    font-size: 14px;
+    font-weight: bold;
+
+}
+
+#quoteadv-box-header-close-btn {
+    float: right;
+    background: url(../../images/qquoteadv/close-btn.png) no-repeat;
+    width: 32px;
+    height: 32px;
+    position: relative;
+    top: -7px;
+
+}
+
+#lightbox1 button {
+    background: #f4cf4e; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y0Y2Y0ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZWU0OGMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #f4cf4e 0%, #fee48c 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f4cf4e), color-stop(100%, #fee48c));
+    background: -webkit-linear-gradient(top, #f4cf4e 0%, #fee48c 100%);
+    background: -o-linear-gradient(top, #f4cf4e 0%, #fee48c 100%);
+    background: -ms-linear-gradient(top, #f4cf4e 0%, #fee48c 100%);
+    background: linear-gradient(to bottom, #f4cf4e 0%, #fee48c 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f4cf4e', endColorstr='#fee48c', GradientType=0);
+    border: 1px solid #f3c935;
+    /*border-bottom-color: #fee48c;
+    border-left-color: #fbdf7c;
+    border-right-color: #f9dd79;*/
+    color: #85600b;
+    text-decoration: none;
+    padding: 5px 10px;
+    margin: 0px;
+    font-size: 12px;
+    height: 28px;
+    -moz-box-shadow: 0px 1px 2px rgba(68, 68, 68, 0.6);
+    -webkit-box-shadow: 0px 1px 2px rgba(68, 68, 68, 0.6);
+    box-shadow: 0px 1px 2px rgba(68, 68, 68, 0.6);
+    margin-left: 142px;
+
+}
+
+#lightbox1 .text {
+    font: Arial, Verdana, sans;
+    font-size: 16px;
+    color: #777777;
+    padding: 20px 40px;
+    text-align: center;
+
+}
+
+#lightbox1 button.button2 {
+    margin-left: 30px;
+}
+
+#lightbox1 button.button1 {
+    margin-left: 80px;
+}
+
+.smallprint {
+    float: right;
+    padding: 30px 10px 10px 5px;
+    font-size: 10px;
+    color: #666;
+}
+
+.custom_note {
+}
+
+.total_note {
+    float: right;
+    margin: 2px 8px 0 0;
+}
+
+.alert_msg {
+    float: right;
+    color: red;
+    font-weight: bold;
+    margin: 0 10px 0 5px;
+}
+
+div.lbaddr {
+    float: left;
+    width: 200px;
+    padding-left: 7px;
+    clear: left;
+}
+
+div.taddr {
+    display: inline;
+    float: left;
+    padding-left: 7px;
+}
+
+#qquote_tabs_product_content .form-list td.label,
+#qquote_tabs_product_content .form-list td.value,
+#qquote_tabs_product_content .form-list td.value2,
+#qquote_tabs_product_content .form-list td.note,
+#qquote_tabs_product_content .form-list td.scope-label,
+#qquote_tabs_product_content .form-list td.use-default {
+    padding: 2px 5px !important;
+}
+
+.optionSelected,
+.optionSelect {
+    width: 250px;
+    float: left;
+}
+
+.editAddress {
+    float: left;
+    color: #999999;
+}
+
+.editAddress:hover {
+    color: #333333;
+}
+
+.multiSelected {
+    float: left;
+    width: 464px;
+}
+
+.item_barBottom {
+    display: table;
+    margin: -10px 0 10px;
+    width: 100%;
+}
+
+#updateButton {
+    float: right;
+    margin: 5px 10px 0 0;
+}
+
+#edit_form .order-totals {
+    padding: 15px 10px;
+}
+
+#edit_form .order-totals table {
+    padding: 0 0 10px 0;
+}
+
+#edit_form .order-totals button {
+    margin: 10px 0 5px;
+}
+
+#edit_form td.file_label {
+    width: auto !important;
+}
+
+#discount button {
+    /*    margin: 0 0 10px 5px; */
+    width: 120px;
+}
+
+#percentage_price {
+    min-width: 50px;
+    width: 50px;
+    margin: 0 10px 0 0;
+}

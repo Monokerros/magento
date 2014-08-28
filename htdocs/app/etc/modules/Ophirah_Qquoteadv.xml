@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ophirah_Qquoteadv>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Bundle/>
+            </depends>
+        </Ophirah_Qquoteadv>
+    </modules>
+</config> 

@@ -1,0 +1,83 @@
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-account"><?php echo $this->__('Account Information') ?></h4>
+    </div>
+    <div class="fieldset">
+        <div class="hor-scroll">
+
+            <table class="form-list" cellspacing="0">
+                <tbody>
+                <?php $name = $this->getCustomerName($quoteModel->getData('customer_id')); ?>
+                <?php //$name = $this->helper('qquoteadv')->getBillingName($quote); ?>
+                <tr>
+                    <td class="label"><label><?php echo $this->__('Customer Name') ?></label></td>
+                    <td class="value">
+                        <?php if ($_customerUrl = $this->getCustomerViewUrl($quoteModel->getData('customer_id'))) : ?>
+                            <a href="<?php echo $_customerUrl ?>"
+                               target="_blank"><strong><?php echo $this->htmlEscape($name) ?></strong></a>
+                        <?php else: ?>
+                            <strong><?php echo $this->htmlEscape($name) ?></strong>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+
+                <?php $company = $quoteModel->getData('company') ?>
+                <tr>
+                    <td class="label"><label><?php echo $this->__('Company Name') ?></label></td>
+                    <td class="value"><strong><?php echo $company ?></strong></td>
+                </tr>
+
+                <?php $email = $quoteModel->getData('email') ?>
+                <tr>
+                    <td class="label"><label><?php echo $this->__('Email') ?></label></td>
+                    <td class="value"><a href="mailto:<?php echo $email ?>"><strong><?php echo $email ?></strong></a>
+                    </td>
+                </tr>
+                <?php $tel = $quoteModel->getData('telephone') ?>
+                <tr>
+                    <td class="label"><label><?php echo $this->__('Telephone') ?></label></td>
+                    <td class="value"><strong><?php echo $tel ?></strong></td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label><?php echo $this->__('Customer Group') ?></label></td>
+                    <td class="value">
+                        <strong><?php echo $this->getCustomerGroupName($quoteModel->getData('customer_id')) ?></strong>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<?php $ordersList = Mage::helper('qquoteadv')->getOrderByC2Q($quoteModel->getData('quote_id'), $quoteModel->getData('store_id')); ?>
+<?php if (count($ordersList) > 0) : ?>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account"><?php echo $this->__('Linked Orders') ?></h4>
+        </div>
+        <div class="fieldset">
+            <div class="hor-scroll">
+
+                <table class="form-list" cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td class="label"><label><?php echo $this->__('Order number') ?></label></td>
+                        <td class="value"><strong><?php
+
+                                foreach ($ordersList as $orderId => $orderIncrementId) {
+                                    $str = Mage::helper('sales')->__('Order #%s', $orderIncrementId);
+                                    $link = $this->getUrl('adminhtml/sales_order/view', array('order_id' => $orderId));
+                                    echo '<a href="' . $link . '" >' . $str . '</a><br />';
+                                }
+
+                                ?></strong></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+<?php endif ?>

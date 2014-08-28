@@ -1,0 +1,260 @@
+<?php if (Mage::getStoreConfig('qquoteadv/quick_quote/quick_quote_mode') == "1"): ?>
+    <div id="quickQuoteWrapper<?php echo $this->getData('listId'); ?>" style="display: none;">
+    <div id="quickQuoteBack">
+        &nbsp;
+    </div>
+    <div id="quickQuote">
+    <div class="close-icon">
+        <img src="<?php echo $this->getSkinUrl('images/qquoteadv/close-button.png'); ?>" alt="close"
+             onclick="$('quickQuoteWrapper<?php echo $this->getData('listId'); ?>').hide();"/>
+    </div>
+
+    <div class="qquote-client-collaterals">
+
+        <?php
+        // Setting Variables
+        $required = '<span class="required">*</span>';
+
+        // Prefix for config_data table
+        $fieldPrefix = 'qquoteadv/quick_quote/quick_quote_mode_';
+        $currentStoreId = Mage::app()->getStore()->getStoreId();
+
+        // Set Action for Quick Quote
+        $formName = ((int)$this->getData('listId') > 0)?"quoteList":"product_addtocart_form";
+        $url = $this->helper('qquoteadv/catalog_product_data')->getUrlAdd2Qquoteadv($this->getParentBlock()->getProduct());
+        $actionQuote = "addQuote('" . $url . "', 0 );" . "$('" . $formName . $this->getData('listId') . "').submit();";
+
+        // Set Customer data
+        $customer = $this->getCustomerSession()->getCustomer();
+
+        // Add customer information after shipping estimate request
+        if ($quoteCustomer = Mage::getSingleton('customer/session')->getData('quoteCustomer')) {
+            $customer->addData($quoteCustomer->getData());
+        }
+
+        if ((int)$this->getData('listId') > 0) {
+            $quoteListId = $formName . $this->getData('listId');
+            echo "<form method='post' id=\"" . $quoteListId . "\" name=\"" . $quoteListId . "\" action='" . $this->getUrl('qquoteadv/index/quoteRequest', array('_secure' => true)) . "' >";
+        }
+
+        // Make Shipping Address same as Billing Address
+        echo '<input type="hidden" value="1" name="customer[shipIsBill]" />';
+        ?>
+
+        <div class="client-data box">
+            <h4><?php echo $this->__('Enter your personal information to place a Quote Request.') ?> </h4>
+
+            <?php
+            // Make Field configurable from backend
+            if ($storeSetting = $this->isRequired($fieldPrefix, 'remark', $currentStoreId)):
+                ?>
+                <?php echo $this->__('Do you have a general remark with your quote request?') ?>
+                <br/>
+                <textarea name="customer[client_request]" id="customer:client_request" cols="10" rows="5"
+                          style="width:95%;"
+                          class="input-text"></textarea>
+            <?php endif; ?>
+
+            <?php
+
+            ?>
+
+            <div class="input-box">
+                <div id="accountDiv">
+                    <?php $email = $customer->getEmail() ? $customer->getEmail() : $this->getCustomerEmail() ?>
+                    <table id="qquote-tbl-address" cellspacing='6' cellpadding='3' border="0" width="100%">
+                        <tr>
+                            <td class="left">
+                                <?php echo $this->__('Email Address') . $required ?><br/>
+                                <input <?php if (!empty($email)): ?>readonly="readonly"<?php endif; ?> type='text'
+                                       value="<?php echo $email; ?>"
+                                       name='customer[email]' id='customer:email'
+                                       class="validate-email required-entry input-text"/><span id="please-wait"
+                                       style="display:none;"><img
+                                        alt="<?php echo $this->__('Checking..') ?>"
+                                        src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>"/></span>
+
+                                <div style="display:none;" id="email_message">&nbsp;</div>
+                            </td>
+                            <td class="p5">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="left">
+                                <?php echo $this->__('First Name') . $required ?><br/>
+                                <input type='text' value="<?php echo $customer->getData('firstname'); ?>"
+                                       name='customer[firstname]' id='customer:firstname'
+                                       class="required-entry input-text"/>
+                            </td>
+                            <td class="p5">
+                                <?php echo $this->__('Last Name') . $required ?><br/>
+                                <input type='text' value="<?php echo $customer->getData('lastname'); ?>"
+                                       name='customer[lastname]' id='customer:lastname'
+                                       class="required-entry input-text"/>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <?php
+                            // Make Field configurable from backend
+                            if ($storeSetting = $this->isRequired($fieldPrefix, 'telephone', $currentStoreId)): ?>
+                                <td class="left">
+                                    <?php echo $this->__('Telephone') . $storeSetting->getData('required') ?><br/>
+                                    <input type='text' value="<?php echo $this->getValue('telephone', 'billing') ?>"
+                                           name='customer[telephone]' id='customer:telephone'
+                                           class="<?php echo $storeSetting->getData('class') ?> input-text"/>
+                                </td>
+                            <?php endif; ?>
+                            <?php
+                            // Make Field configurable from backend
+                            if ($storeSetting = $this->isRequired($fieldPrefix, 'company', $currentStoreId)): ?>
+                                <td class="p5">
+                                    <?php echo $this->__('Company') . $storeSetting->getData('required') ?><br/>
+                                    <input type='text' value="<?php echo $this->getValue('company', 'billing') ?>"
+                                           name='customer[company]' id='customer:company'
+                                           class="<?php echo $storeSetting->getData('class') ?> input-text"/>
+                                </td>
+                            <?php endif; ?>
+                        </tr>
+                        <tr>
+                            <?php
+                            // Make Field configurable from backend
+                            if ($storeSetting = $this->isRequired($fieldPrefix, 'country', $currentStoreId)): ?>
+                                <td class="left">
+                                    <?php echo $this->__('Country') . $required ?><br/>
+                                    <?php echo Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect($this->getValue('country_id', 'billing'), 'customer[country_id]', 'country' . $this->getData('listId'), $this->__('Country')) ?>
+                                </td>
+                                <td class="p5">
+                                    <?php echo $this->__('State/Province') ?><br/>
+                                    <select name='customer[region_id]'
+                                            id='region_id<?php echo $this->getData('listId'); ?>'
+                                            title="<?php echo $this->__('State/Province') ?>"
+                                            class="<?php echo $storeSetting->getData('class') ?> validate-select w224"
+                                            style="display:none;">
+                                        <option value=""><?php echo $this->getValue('region_id', 'billing'); ?></option>
+                                    </select>
+                                    <input onfocus="Element.setStyle(this, {color:'#2F2F2F'});" type="text"
+                                           name='customer[region]' id='region<?php echo $this->getData('listId'); ?>'
+                                           value="<?php echo $this->getValue('region', 'billing'); ?>"
+                                           title="<?php echo $this->__('State/Province') ?>"
+                                           class="<?php echo $storeSetting->getData('class') ?> input-text w224"/>
+                                </td>
+                            <?php endif; ?>
+                        </tr>
+                        <?php
+                        // Adding extra option fields
+                        // pass Option Types as argument
+                        // to getExtraoptionsForm()
+                        $extraOptions = Mage::getModel('qquoteadv/extraoptions')->getExtraoptionsForm();
+
+                        if ($extraOptions != NULL):
+                            foreach ($extraOptions as $option):
+                                $pos1 = Ophirah_Qquoteadv_Model_Extraoptions::FORM_POS1;
+                                $pos2 = Ophirah_Qquoteadv_Model_Extraoptions::FORM_POS2;
+                                ?>
+                                <tr>
+                                    <td class="left">
+                                        <?php
+                                        if ($option[$pos1] != NULL):
+                                            $thisRequired = (isset($option[$pos1]['required'])) ? $option[$pos1]['required'] : false;
+                                            echo Mage::getModel('qquoteadv/extraoptions')->createInputHtml($option[$pos1], $thisRequired);
+                                        endif; ?>
+                                    </td>
+                                    <td class="p5">
+                                        <?php
+                                        if ($option[$pos2] != NULL):
+                                            $thisRequired = (isset($option[$pos2]['required'])) ? $option[$pos2]['required'] : false;
+                                            echo Mage::getModel('qquoteadv/extraoptions')->createInputHtml($option[$pos2], $thisRequired);
+                                        endif;?>
+                                    </td>
+                                </tr>
+                            <?php
+                            endforeach;
+                        endif;
+                        ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <p class="required">* <?php echo $this->__('Required Fields') ?></p>
+
+        <div class="quickQuoteButtons" style="float:right;">
+            <input type='hidden' id='customer_isQuote' name='customer[is_quote]' value='1'/>
+            <input style="display:none;" type='submit' name='submitOrder' id="submitOrder" class='form-button'
+                   value="<?php echo $this->__('Request quote') ?>"/>
+
+            <button onclick="<?php echo $actionQuote; ?>"
+                    class="button btn-proceed-checkout btn-checkout"
+                    title="<?php echo $this->__('Request quote') ?>" type="button">
+                <span><span><?php echo $this->__('Request quote') ?></span></span>
+            </button>
+        </div>
+
+        <?php
+        if (isset($quoteListId)) {
+            echo "</form>";
+        }
+        ?>
+    </div>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        new RegionUpdater('country<?php echo $this->getData('listId');?>', 'region<?php echo $this->getData('listId');?>', 'region_id<?php echo $this->getData('listId');?>', <?php echo $this->helper('directory')->getRegionJson() ?>);
+        $('country<?php echo $this->getData('listId');?>').addClassName('w224');
+
+        var elmEmail = $('customer:email');
+        var elmEmailMsg = $('email_message');
+        var btnSubm = $('submitOrder');
+        if (elmEmail) {
+            Event.observe(elmEmail, 'keydown', function (event) {
+                var e = event || window.event;
+                if (btnSubm) {
+                    btnSubm.disabled = false;
+                }
+                if (e) {
+                    if (e.keyCode == 13) return false;
+                }
+            });
+
+            Event.observe(elmEmail, 'click', function (event) {
+                cssFailClass = 'validation-failed';
+                if (elmEmail.hasClassName(cssFailClass)) {
+                    elmEmail.removeClassName(cssFailClass);
+                    elmEmail.value = '';
+
+                    elmEmailMsg.hide();
+                    elmEmailMsg.removeClassName('validation-advice');
+
+                    if (btnSubm) {
+                        btnSubm.setStyle({background: '#F18200'});
+                        btnSubm.disabled = false;
+                    }
+                }
+            });
+        }
+        //]]>
+    </script>
+
+    <?php
+    $disable_check = Mage::getStoreConfig('qquoteadv/general/disable_exist_account_check');
+    if (!$disable_check):
+        ?>
+        <script type="text/javascript">
+            //<![CDATA[
+            var elmEmail = $('customer:email');
+            if (elmEmail) {
+                var url = '<?php echo $this->getUrl('qquoteadv/index/useJsEmail') ?>';
+                var message = '<?php echo $this->__('Customer email already exists. You should login <a href=%s>here</a>', $this->getLoginUrl()) ?>';
+
+                Event.observe(elmEmail, 'change', function (event) {
+                    isExistUserEmail(event, url, message)
+                });
+            }//]]>
+        </script>
+    <?php endif; ?>
+
+
+    </div> <?php // END quickQuote ?>
+    </div> <?php // END quickQuoteWrapper?>
+<?php endif; ?>

@@ -1,0 +1,298 @@
+<div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Shipping Information'); ?></h4>
+</div>
+<div id="_newsletterbase_fieldset" class="fieldset">
+<div class="hor-scroll">
+<?php
+$spanStyle = '';
+$inputDisplay = '';
+
+if (!$this->isAvaliableShipPrice()) {
+    $spanStyle = 'style="display:none;"';
+}
+if (!$this->isAvaliableShipPrice() || !$quoteModel->getData('shipping_type')) {
+    $inputDisplay = 'disabled="disabled"';
+}
+
+$sPrice = '
+        <span ' . $spanStyle . ' id="shipping" >
+                    <label for="shipping_price" class="normal">' . $this->__('Price') . '</label> <span class="required">*</span>
+                    <input type="text" value="' . $this->getQuoteShipPrice() . '" size="3"  id="shipping_price" name="shipping_price"
+         ' . $inputDisplay . '   style="width:70px;"
+        	class="required-entry validate-zero-or-greater required-entry input-text"  />
+
+        </span>';
+?>
+
+<?php
+$currentMethod = '';
+?>
+
+<table cellspacing="0" class="form-list" border="0" style="width:100%;">
+<tbody>
+
+<tr>
+    <td class="label">
+        <label for="shipping_type" class="normal"><?php echo $this->__('Use Store Settings'); ?></label>
+    </td>
+    <?php
+    // Check for selected shipping method
+    $useDefault = false;
+    $useC2Qship = in_array($quoteModel->getData('shipping_type'), array("I", "O")) ? true : false;
+    $styleHide = '';
+    if (!$quoteModel->getData('shipping_method') == null && $useC2Qship === false) {
+        $useDefault = true;
+        $styleHide = 'style="display:none;"';
+    } ?>
+    <td id="store-shipping-settings" style="width:50px; vertical-align:top;">
+        <?php if (!$useDefault === true): ?>
+            <input name="shipping_type" type="radio" value=""
+                   <?php if ($useC2Qship === false): ?>checked="checked"<?php endif; ?>
+                   onclick="
+                                           if (this.checked) {
+                                               shipI = $('shipI').innerHTML;
+                                               shipO = $('shipO').innerHTML;
+                                               if (shipI.length > 5) {
+                                                   $('shipEmpty').innerHTML = shipI;
+                                                   $('shipI').innerHTML = '';
+                                               }
+                                               else if (shipO.length > 5)
+                                               {
+                                                   $('shipEmpty').innerHTML = shipO;
+                                                   $('shipO').innerHTML = '';
+                                               }
+
+                                               $('shipping_price').disabled = true;
+                                               // $('shipping_price').value='';
+                                               $('shipping').hide();
+                                           }
+                                   "/>
+        <?php endif; ?>
+    </td>
+    <td>
+        <div id="order-shipping-method-summary">
+            <?php
+            // Check for selected shipping method
+            if ($useDefault === true) {
+                $linkTitle = $this->__('Click to change shipping method');
+                $currentMethod = Mage::getModel('qquoteadv/quoteshippingrate')->getShippingMethodByCode($quoteModel->getAddress()->getAddressId(), $quoteModel->getData('shipping_method'));
+            } else {
+                $linkTitle = $this->__('Get shipping methods and rates');
+            }
+
+            if ($useDefault === true && $currentMethod):
+                ?>
+                <dl class="shipment-methods">
+                    <dt><strong><?php echo $currentMethod->getData('carrier_title'); ?> </strong></dt>
+                    <dd>
+                        <ul>
+                            <li>
+                                <input name="shipping_default" type="radio" value="" checked="checked"/>
+                                <label for="<?php echo $currentMethod->getData('code'); ?>" class="normal"
+                                       style="margin: 0 5px 0 0;">
+                                    <?php echo $currentMethod->getData('method_title'); ?> - <strong><span
+                                            class="price"><?php echo $quoteModel->formatPrice($currentMethod->getData('price') * $rate); ?></span></strong>
+                                </label>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+
+            <?php endif; ?>
+
+            <?php $onclick = "  $('order-shipping-method-summary').hide();
+                                                $('store-shipping-settings').hide();
+                                                $('order-shipping-method-choose').show();
+                                                $('perItem').show();
+                                                $('perOrder').show();
+                                                $('ship_button').show();
+                                                $('none').show();
+                                                "
+            ?>
+
+            <a href="#order-shipping-method-choose" onclick="<?php echo $onclick; ?>"
+               style="margin: 0 0 0 25px;"><?php echo $linkTitle; ?></a>
+            <input type="hidden" name="order[has_shipping]" value=""/>
+        </div>
+        <div style="display:none;" id="order-shipping-method-choose">
+            <dl class="shipment-methods">
+                <?php
+                if ($groupedShippingRates = Mage::getModel('qquoteadv/quoteshippingrate')->getGroupedAllShippingRates($quoteModel)):
+                    foreach ($groupedShippingRates as $shippingRates):
+                        ?>
+                        <dt><strong><?php echo $shippingRates[0]->getData('carrier_title'); ?> </strong></dt>
+                        <dd>
+                            <ul>
+                                <?php
+                                foreach ($shippingRates as $shiprate) {
+                                    $checked = '';
+                                    if ($shiprate->getData('code') == $quoteModel->getAddress()->getShippingMethod()) {
+                                        $checked = 'checked="checked"';
+                                    }
+                                    ?>
+                                    <li>
+                                        <input name="shipping_type" type="radio"
+                                               id="<?php echo $shiprate->getData('code'); ?>" <?php echo $checked; ?>
+                                               value="<?php echo $shiprate->getData('rate_id'); ?>"
+                                               onclick="
+                                                                    if (this.checked) {
+                                                                        shipI = $('shipI').innerHTML;
+                                                                        shipO = $('shipO').innerHTML;
+                                                                        if (shipI.length > 5) {
+                                                                            $('shipEmpty').innerHTML = shipI;
+                                                                            $('shipI').innerHTML = '';
+                                                                        }
+                                                                        else if (shipO.length > 5)
+                                                                        {
+                                                                            $('shipEmpty').innerHTML = shipO;
+                                                                            $('shipO').innerHTML = '';
+                                                                        }
+
+                                                                        $('shipping_price').disabled = true;
+                                                                        // $('shipping_price').value='';
+                                                                        $('shipping').hide();
+                                                                    }
+                                                            "/>
+                                        <label for="<?php echo $shiprate->getData('code'); ?>" class="normal"
+                                               style="margin: 0 0 0 10px;">
+                                            <?php echo $shiprate->getData('method_title'); ?> - <strong><span
+                                                    class="price"><?php echo $quoteModel->formatPrice($shiprate->getData('price') * $rate); ?></span></strong>
+                                        </label>
+                                    </li>
+                                <?php
+                                }
+                                ?>
+                            </ul>
+                        </dd>
+                    <?php endforeach; ?>
+                <?php
+                else:
+                    echo '<dt><strong>' . $this->__("Currently no shipping methods are available") . '</strong></td>';
+                    ?>
+                <?php endif; // groupedShippingRates ?>
+            </dl>
+        </div>
+
+    </td>
+
+    <td style="vertical-align:middle;"><span
+            id="shipEmpty"><?php if (!in_array($quoteModel->getData('shipping_type'), array("I", "O"))) echo $sPrice; ?></span>
+    </td>
+</tr>
+<tr id="perItem" <?php echo $styleHide ?>>
+    <td class="label">
+        <label for="shipping_type" class="normal"><?php echo $this->__('Per Item'); ?></label>
+
+    </td>
+    <td style="vertical-align:middle;"><input name="shipping_type" type="radio" value="I"
+                                              <?php if ($quoteModel->getData('shipping_type') == 'I'): ?>checked="checked"<?php endif; ?>
+                                              onclick="
+                                       if (this.checked) {
+
+                                           $('shipping_price').disabled = false;
+
+                                           $('shipping').show();
+
+                                           shipEmpty = $('shipEmpty').innerHTML;
+                                           shipO = $('shipO').innerHTML;
+
+                                           if (shipEmpty.length > 1) {
+                                               $('shipI').innerHTML = shipEmpty;
+                                               $('shipEmpty').innerHTML = '';
+                                           }
+                                           else if (shipO.length > 1)
+                                           {
+                                               $('shipI').innerHTML = shipO;
+                                               $('shipO').innerHTML = '';
+                                           }
+
+                                       }
+                                                              "
+                                              colspan="2"/></td>
+    <td style="vertical-align:middle;"><span
+            id="shipI"><?php if ($quoteModel->getData('shipping_type') == 'I') echo $sPrice; ?></span></td>
+</tr>
+<tr id="perOrder" <?php echo $styleHide ?>>
+    <td class="label">
+        <label for="shipping_type" class="normal"><?php echo $this->__('Fixed Price Per Order'); ?></label>
+
+    </td>
+    <td style="vertical-align:middle;"><input name="shipping_type" type="radio" value="O"
+                                              <?php if ($quoteModel->getData('shipping_type') == 'O'): ?>checked="checked"<?php endif; ?>
+                                              onclick="
+                                       if (this.checked) {
+
+                                           $('shipping_price').disabled = false;
+
+                                           $('shipping').show();
+
+                                           shipEmpty = $('shipEmpty').innerHTML;
+                                           shipI = $('shipI').innerHTML;
+
+                                           if (shipI.length > 5) {
+                                               $('shipO').innerHTML = shipI;
+                                               $('shipI').innerHTML = '';
+                                           }
+                                           else if (shipEmpty.length > 5)
+                                           {
+                                               $('shipO').innerHTML = shipEmpty;
+                                               $('shipEmpty').innerHTML = '';
+                                           }
+                                       }
+                                                              "
+
+                                              colspan="2"/></td>
+    <td style="vertical-align:middle;"><span
+            id="shipO"><?php if ($quoteModel->getData('shipping_type') == 'O') echo $sPrice; ?></span>
+    </td>
+
+</tr>
+<tr id="none" <?php echo $styleHide ?>>
+    <?php // Adding None Option
+    if (($useDefault === true && $currentMethod) || $useC2Qship === true):
+        ?>
+        <td class="label">
+            <label for="shipping_type" class="normal"><?php echo $this->__('Remove Current Rate ?'); ?></label>
+        </td>
+        <td style="vertical-align:middle;"><input name="shipping_type" type="radio" value="none" colspan="2"
+                                                  onclick="
+                                                                    if (this.checked) {
+                                                                        shipI = $('shipI').innerHTML;
+                                                                        shipO = $('shipO').innerHTML;
+                                                                        /*
+                                                                        if (shipI.length > 5) {
+                                                                            $('shipEmpty').innerHTML = shipI;
+                                                                            $('shipI').innerHTML = '';
+                                                                        }
+                                                                        else if (shipO.length > 5)
+                                                                        {
+                                                                            $('shipEmpty').innerHTML = shipO;
+                                                                            $('shipO').innerHTML = '';
+                                                                        }
+                                                                        */
+
+                                                                        $('shipping_price').disabled = true;
+                                                                        // $('shipping_price').value='';
+//                                                                        $('shipping').hide();
+                                                                    }
+                                                            "/>
+        </td>
+    <?php endif; // None Option ?>
+</tr>
+<?php $style = ($currentMethod) ? 'style="display:none"' : '' ?>
+<tr id="ship_button" <?php echo $style ?>>
+    <td colspan="3">&nbsp;
+        
+    </td>
+    <td style="float: right;">
+        <?php
+        $vars = new Varien_Object;
+        $vars->setData('label', $this->__('Apply'));
+        echo $this->getSaveButton($vars)->_toHtml();
+        ?>
+    </td>
+</tr>
+
+</table>
+</div>
+</div>	

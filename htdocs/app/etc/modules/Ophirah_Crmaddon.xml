@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ophirah_Crmaddon>
+            <active>false</active>
+            <codePool>community</codePool>
+            <depends>
+                <Ophirah_Qquoteadv/>
+            </depends>
+        </Ophirah_Crmaddon>
+    </modules>
+</config> 

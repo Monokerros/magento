@@ -1,0 +1,827 @@
+<div style="" id="quotes_tabs_form_product_content">
+<div class="entry-edit profile-generator" id="profile-generator">
+<div id="__fieldmapping">
+
+<?php
+// Quote as model
+// New quote data for this template
+$collectTotals = Mage::getStoreConfig('qquoteadv/quote_advanced/calculate_quote_totals_on_load') || Mage::getSingleton("core/session")->getCollectTotals();
+$quoteModel = $this->getQuoteData($collectTotals);
+Mage::getSingleton("core/session")->setCollectTotals(0);
+$customer = Mage::getModel('customer/customer')->load($quoteModel->getCustomerId());
+
+// DEPRECATED
+// Quote Data as array
+// Original quote data for this template
+//    $quote = $quoteModel->getData();
+
+$helper = Mage::helper('qquoteadv');
+
+// Setting Trial Hash data
+$createHash = array();
+$createHash[] = ($quoteModel->getData('create_hash')) ? $quoteModel->getData('create_hash') : '';
+$createHash[] = ($quoteModel->getData('increment_id')) ? $quoteModel->getData('increment_id') : '';
+// make sure $rate is set.
+$rate = $quoteModel->getData('base_to_quote_rate');
+(!$rate) ? $rate = $quoteModel->getBaseToQuoteRate() : $rate;
+$currency = $quoteModel->getData('currency');
+
+// Setting model with totals
+$_qTotals = Mage::getModel('qquoteadv/quotetotal');
+$_qTotals->setTotalRate($rate);
+$_qTotals->setTotalCurrency($currency);
+$_qTotals->setQuoteStore($quoteModel->getStoreId());
+$_qTotals->setTotalCurrencyCode($currency);
+$_quoteTotalItems = array();
+
+/*
+if (Mage::getStoreConfig('tax/calculation/price_includes_tax', $store = NULL) == 1):
+    $customPriceNote = $helper->__("Enter custom price including default tax");
+else:
+    $customPriceNote = $helper->__("Enter custom price excluding tax");
+endif;
+
+$costPriceNote = $helper->__("Profit is based on entered cost prices");
+*/
+?>
+<input id="redirect2neworder" name="redirect2neworder" type="hidden" value="0">
+<?php
+// Adding trail hash to form
+if (is_array($createHash)):
+    foreach ($createHash as $k => $v) {
+        echo '<input id="createHash" name="createHash[' . $k . ']" type="hidden" value="' . $v . '">';
+    }
+endif;
+
+$btnEditProducts = $this->getLayout()->createBlock('adminhtml/widget_button');
+$btnEditProducts->setLabel($this->__('Edit products'));
+$btnEditProducts->setClass('add');
+// checkRadio will be DEPRECATED
+$onclick = "if(isCheckRadio()){ $('redirect2neworder').value=1; $('loading-mask').show(); save(); }else{ return false;}";
+
+$btnEditProducts->setOnclick($onclick);
+?>
+
+<div style="" id="sales_order_view_tabs_order_info_content">
+    <div style="min-width: 940px; width:auto;">
+        <div id="order-messages"></div>
+        <div class="box-left" style="min-width:450px;">
+            <!--Quote Information-->
+            <?php include('details/quote_information.phtml') ?>
+        </div>
+        <div class="box-right">
+            <!--Account Information-->
+            <?php include('details/account_information.phtml') ?>
+        </div>
+        <?php /*
+        <div class="clear"></div>
+        <div class="box-left" style="min-width:450px;">
+            <!--General Request Information-->
+            <?php include('details/general_request_information.phtml') ?>
+        </div>
+		*/ ?>
+        <div class="box-left">
+            <!-- Billing Information-->
+            <?php include('details/billing_information.phtml') ?>
+        </div>
+        <div class="box-right">
+            <!--Shipping Information-->
+            <?php include('details/shipping_information.phtml') ?>
+        </div>
+        <div class="clear"></div>
+
+    </div>
+</div>
+
+<div class="entry-edit-head" style="width:auto;">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Product Information') ?></h4>
+
+    <div style="float:right; margin:3px;">
+
+        <?php print '&nbsp;&nbsp;' . $btnEditProducts->_toHtml(); ?>
+    </div>
+</div>
+<fieldset style="padding: 0px;">
+<legend><?php echo $this->__('Product Information') ?></legend>
+<div class="grid np">
+<div class="hor-scroll">
+<table cellspacing="0" class="data order-tables" border=1>
+
+<thead>
+<tr class="headings">
+    <th width="30%"><?php echo $this->__('Product Name') ?></th>
+    <?php /*<th class="a-center" width="1%"><?php echo $this->__('Sku') ?></th> */ ?>
+    <th class="a-center" width="40%"><?php echo $this->__('Comment with Product') ?></th>
+    <?php /* <th class="a-center"><?php echo $this->__('Cost Price') ?></th> */?>
+    <th class="a-center"><?php echo $this->__('Price') ?></th>
+    <th class="a-center"><?php echo $this->__('Qty') ?></th>
+    <th class="a-center" width="7.5%" style="min-width:130px;"><?php echo $this->__('Price Proposal')?></th>
+    <?php /*<th class="a-center" width="7.5%"><?php echo $this->__('Margin (GP)') ?></th> */ ?>
+</tr>
+</thead>
+
+<tbody class="even">
+<tr class="border">
+<?php
+$q2qKey = 0;
+$itemCount = 0;
+foreach ($this->getProductData() as $item): // START $ITEM
+$product = $this->getProductInfo($item->getProductId());
+$productUrl = Mage::helper("adminhtml")->getUrl("adminhtml/catalog_product/edit/", array("id" => $item->getProductId()));
+?>
+<td>
+    <div>
+        <div class="item-text">
+            <h5 class="title"><a href="<?php echo $productUrl; ?>"><?php echo $product->getName() ?></a>
+                <?php if (!$product->getStockItem()->getIsInStock()): ?>
+                    <div class="error">
+                        <div style="font-size:95%">
+                            <?php echo Mage::helper('cataloginventory')->__('This product is currently out of stock.') ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </h5>
+			<div><strong><?php echo Mage::helper('qquoteadv')->__('SKU:')?></strong> <?php echo $product->getSku(); ?></div>
+            <?php
+            if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE):
+                $product->setStoreId($item->getStoreId() ? $item->getStoreId() : 1);
+
+                $virtualQuote = Mage::helper('qquoteadv')->getQuoteItem($product, $item->getAttribute());
+                $_helper = Mage::helper('bundle/catalog_product_configuration');
+
+                foreach ($virtualQuote->getAllItems() as $_unit) {
+                    if ($_unit->getProductId() == $product->getId()) {
+
+                        $_options = $_helper->getOptions($_unit);
+                        if (is_array($_options)) {
+                            ?>
+                            <dl class="item-options">
+                                <?php foreach ($_options as $option): ?>
+
+                                    <dt><?php echo $option['label'] ?>:</dt>
+                                    <dd>
+                                        <?php if (isset($option['custom_view']) && $option['custom_view']): ?>
+                                            <?php echo $option['value']; ?>
+                                        <?php else: ?>
+
+                                            <?php if (is_array($option['value'])): ?>
+                                                <?php foreach ($option['value'] as $optionValue): ?>
+                                                    <?php echo $optionValue.'<br>'; ?>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <?php echo Mage::helper('core/string')->truncate($option['value'], 45, '', $_remainder); ?>
+                                                <?php if ($_remainder): ?>
+                                                    ... <span
+                                                        id="<?php echo $_id = 'id' . uniqid() ?>"><?php echo $_remainder ?></span>
+                                                    <script type="text/javascript">
+                                                        $('<?php echo $_id ?>').hide();
+                                                        $('<?php echo $_id ?>').up().observe('mouseover', function () {
+                                                            $('<?php echo $_id ?>').show();
+                                                        });
+                                                        $('<?php echo $_id ?>').up().observe('mouseout', function () {
+                                                            $('<?php echo $_id ?>').hide();
+                                                        });
+                                                    </script>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </dd>
+
+                                <?php endforeach; ?>
+                            </dl>
+                        <?php
+                        }
+                    }
+                }
+
+            elseif ($product->isConfigurable() || $product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE):
+
+                $x = Mage::helper('qquoteadv')->getQuoteItem($product, $item->getAttribute(), null, $item);
+
+                foreach ($x->getAllItems() as $_zz):
+                    $_zz->setQuote($quoteModel);
+                    if ($_zz->getProductId() == $product->getId()):
+                        switch ($product->getTypeId()) {
+                            case Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE:
+                                $obj = new Ophirah_Qquoteadv_Block_Item_Renderer_Configurable;
+                                $obj->setTemplate('qquoteadv/item/configurable.phtml');
+                                $obj->setItem($_zz);
+                                break;
+
+                            default:
+                                $obj = new Ophirah_Qquoteadv_Block_Item_Renderer;
+                                $obj->setTemplate('qquoteadv/item/default.phtml');
+                                $obj->setItem($_zz);
+                                break;
+                        }
+
+                        if ($_options = $obj->getOptionList()):?>
+                            <dl class="item-options">
+                                <?php foreach ($_options as $option) : ?>
+                                    <dt><?php echo $option['label'] ?>:</dt>
+                                    <dd>
+                                        <?php if (isset($option['custom_view']) && $option['custom_view']): ?>
+                                            <?php echo $option['value']; ?>
+                                        <?php else: ?>
+
+                                            <?php if (is_array($option['value'])): ?>
+                                                <?php foreach ($option['value'] as $optionValue): ?>
+                                                    <?php echo $optionValue.'<br>'; ?>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <?php echo Mage::helper('core/string')->truncate($option['value'], 45, '', $_remainder); ?>
+                                                <?php if ($_remainder): ?>
+                                                    ... <span
+                                                        id="<?php echo $_id = 'id' . uniqid() ?>"><?php echo $_remainder ?></span>
+                                                    <script type="text/javascript">
+                                                        $('<?php echo $_id ?>').hide();
+                                                        $('<?php echo $_id ?>').up().observe('mouseover', function () {
+                                                            $('<?php echo $_id ?>').show();
+                                                        });
+                                                        $('<?php echo $_id ?>').up().observe('mouseout', function () {
+                                                            $('<?php echo $_id ?>').hide();
+                                                        });
+                                                    </script>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </dd>
+                                <?php endforeach; ?>
+                            </dl>
+                        <?php endif;
+                    endif;
+                endforeach;
+            endif; ?>
+
+        </div>
+    </div>
+</td>
+<?php
+//$status = Mage::registry('qquote_data')->getData('status');
+
+//if(
+//    $status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL ||
+//    $status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL_SAVED
+//){
+$hideRadio = true;
+//}else{
+//    $hideRadio = false;
+//}
+$prices = array();
+$margins = array();
+$aQty = array();
+
+$collection = $this->getRequestedProductData($item->getId(), $quoteModel);
+if (count($collection) > 0):
+
+    $i = 0;
+    foreach ($collection as $requested_item):
+        $line = $requested_item->getRequestQty();
+        $line .= '<input type="hidden" name="product[' . $requested_item->getId() . '][qty]" value="' . $requested_item->getRequestQty() . '">';
+
+        $aQty[] = $line;
+        $showPrice = number_format($requested_item->getOriginalCurPrice(), 2);
+
+        if ($ownerPrice = Mage::app()->getStore()->roundPrice($requested_item->getOwnerCurPrice())) {
+            if ($requested_item->getOriginalPrice() == $requested_item->getOwnerBasePrice()) {
+                $ownerPrice = Mage::app()->getStore()->roundPrice($ownerPrice);
+            }
+            $showPrice = $ownerPrice;
+        }
+
+        $priceLine = array();
+
+        if ($hideRadio) {
+            $radioStates = array('unselected' => '', 'selected' => 'checked="checked"');
+            foreach ($radioStates as $state => $radioState) {
+                $priceLine[$state] = '&nbsp;<input ' . $radioState . ' class="rbt" type="radio" name="q2o[' . $q2qKey . ']" value="' . $requested_item->getId() . '">&nbsp;&nbsp;';
+            }
+        }
+
+        $url = $this->getUrl('*/*/deleteQtyField', array('request_id' => $requested_item->getId()));
+        $priceLine['value'] = '<input type="text" name="product[' . $requested_item->getId() . '][price]"
+				value="' . $showPrice . '" size="3" class="required-entry validate-zero-or-greater required-entry input-text proposalprice sku-' . $product->getSku() . '"  style="width:70px;" id="price-' . $requested_item->getId() . '">';
+        $priceLine['value'] .= '&nbsp;<a title="' . $this->__('Delete') . '" href="' . $url . '"><img align="absmiddle" src="' . $this->getSkinUrl('images/minus-icon.png') . '" width="16" height="16" alt="' . $this->__('Remove item') . '" /></a>';
+        $priceLine['req_qty'] = $requested_item->getRequestQty();
+
+        $priceLine['quotePrice'] = (isset($ownerPrice)) ? $ownerPrice : number_format($requested_item->getOriginalCurPrice(), 2);
+
+        $prices[] = $priceLine;
+
+        $margins[] = '<div style="height:25px;" id="margin-' . $requested_item->getId() . '"></div>';
+        $i++;
+    endforeach;
+else:
+    $request_item = null;
+endif;
+?>
+
+<? /*<td><?php echo $product->getSku(); ?>
+</td>
+*/ ?></td>
+<td class="a-center">
+    <textarea name="requestedproduct[<?php echo $item->getId() ?>][client_request]" rows="4"
+              style="width:95%;"><?php echo $this->htmlEscape($item->getClientRequest()); ?></textarea>
+</td>
+<?php // COST PRICE ?>
+<?php /*
+<td class="a-center"><span class="price price-cost" id="cost-<?php echo $product->getSku() ?>"><?php
+*/ ?>
+<?php        
+		/** @var $requested_item Ophirah_Qquoteadv_Model_Requestitem */
+        /** @var $product Mage_Catalog_Model_Product */
+        $cost = null;
+
+        /*  ###### DEPRECATED ########
+        if($product->isComposite())
+        {
+            $type = $product->getTypeInstance(true);
+
+            if($type instanceof Mage_Bundle_Model_Product_Type)
+            {
+
+                /** @var $qquoteProduct Ophirah_Qquoteadv_Model_Qqadvproduct */
+        /*
+        foreach($this->getProductData() as $qquoteProduct)
+        {
+            if($requested_item->getQuoteadvProductId() == $qquoteProduct->getId())
+            {
+                break;
+            }
+        }
+
+        $cost = 0;
+        $requestOptions = new Varien_Object(unserialize($qquoteProduct->getAttribute()));
+        $optionQtys = $requestOptions->getBundleOptionQty();
+        $optionValues = $requestOptions->getBundleOption();
+
+        $selectionCollection = $type->getSelectionsCollection($type->getOptionsIds($product), $product);
+        foreach($selectionCollection as $option)
+        {
+            if(!isset($optionValues[$option->getOptionId()]))
+            {
+                continue;
+            }
+
+            $optionSelectValues = $optionValues[$option->getOptionId()];
+            if(empty($optionSelectValues))
+            {
+                continue;
+            }
+
+            if(!is_array($optionSelectValues))
+            {
+                $optionSelectValues = array($optionSelectValues);
+            }
+
+            foreach($optionSelectValues as $optionSelectValue)
+            {
+                if($optionSelectValue != $option->getSelectionId())
+                {
+                    continue;
+                }
+
+                $simpleProduct = Mage::getModel('catalog/product');
+                $simpleProduct->load($option->getProductId());
+                $childCost = $simpleProduct->getCost();
+                if(!$childCost && $product->getCost()) // Take regular cost since this is not relaiable
+                {
+                    $cost = null;
+                    break 2;
+                }
+
+                if(isset($optionQtys[$option->getOptionId()]))
+                {
+                    $childCost = $childCost * $optionQtys[$option->getOptionId()];
+                }
+                $cost += $childCost;
+            }
+        }
+    }
+    else if($type instanceof Mage_Catalog_Model_Product_Type_Configurable)
+    {
+        /** @var $simpleOption Mage_Sales_Model_Quote_Item_Option */
+        /*
+        $simpleOption = $product->getCustomOption('simple_product');
+        $simpleProduct = $simpleOption->getProduct();
+        $simpleProduct->load($simpleProduct->getId());
+        $cost = $simpleProduct->getCost();
+    }
+}
+*/
+ /*
+        // BETA - new function
+        $cost = Mage::getModel('qquoteadv/qqadvproduct')->getQuoteItemCost($product, $requested_item->getQuoteadvProductId());
+
+        if ($cost) {
+            echo Mage::helper('core')->formatPrice($cost * $rate);
+        } else {
+            echo $this->__('n/a');
+            $_qTotals->_costflag = true;
+        }
+
+        // Adding to quotetotals
+        $_quoteItems[$item->getId()]['productId'] = (int)$product->getId();
+
+        if ($cost) {
+            $_quoteItems[$item->getId()]['totalCost'] = $cost * $rate;
+        } else {
+            $_quoteItems[$item->getId()]['totalCost'] = 0;
+        }
+
+        ?></span></td>
+*/ ?>
+<?php // Original Price ?>
+<td class="a-center"><span class="price price-original" id="price-<?php echo $product->getSku() ?>"><?php
+
+
+        if (isset($requested_item) and is_object($requested_item)) {
+            if (count($aQty)) $qty = $aQty[0]; else $qty = 1;
+
+            //$price = Mage::helper('qquoteadv')->_applyPrice($requested_item->getQuoteadvProductId(), strip_tags($qty), $currency);
+
+            //TODO TEST of orginele prijs
+            $price = $requested_item->getOriginalCurPrice();
+            //TODO END TEST
+            if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE):
+                if ($price == 0) {
+                    $bundleDynamic = Mage::helper('qquoteadv')->__("Unsupported product type");
+                }
+            endif;
+
+            //set currency code
+            echo Mage::helper('core')->formatPrice($price);
+        }
+        // Adding to total information
+        if (isset($price)) {
+            $_quoteItems[$item->getId()]['totalOrgprice'] = $price;
+        } else {
+            $_quoteItems[$item->getId()]['totalOrgprice'] = 0;
+        }
+        ?>
+                            
+                            </span>
+</td>
+<td class="a-center">
+    <?php $tierMatch = false;
+    if (count($aQty))?>
+    <?php foreach ($aQty as $key => $value): ?>
+        <div style="height:25px;"><?php echo $value; ?></div>
+        <?php
+        // check if requested qty matches tier options
+        if ($value == $requested_item->getRequestQty()) {
+            $tierMatch == true;
+        }
+        ?>
+    <?php endforeach; ?>
+
+    <a href="#" onclick="typeQty('<?php echo $item->getData('id') ?>')"><?php echo $this->__('Add') ?></a>
+
+    <?php
+    // Setting requested qty for product in totals
+    $_quoteItems[$item->getId()]['totalQty'] = (int)$item->getData('qty');
+    $_qTotals->setTotalQty($_qTotals->getTotalQty() + $item->getData('qty'));
+	if(isset($_quoteItems[$item->getId()]['totalCost'])){
+        $_qTotals->setTotalCost($_qTotals->getTotalCost() + ($item->getData('qty') * $_quoteItems[$item->getId()]['totalCost']));
+    }    
+	
+	$_qTotals->setTotalOrgcost($_qTotals->getTotalOrgcost() + ($item->getData('qty') * $_quoteItems[$item->getId()]['totalOrgprice']));
+    ?>
+
+</td>
+<td <?php if ($hideRadio): ?>class="a-left" <?php else: ?>class="a-center"<?php endif; ?> onclick="updateTotal()">
+
+    <?php if (isset($bundleDynamic__)): // TODO create message for Bundle products with Dynamic pricing?>
+
+        <div style="height:25px;"><?php echo $bundleDynamic; ?></div>
+
+    <?php else: ?>
+
+
+        <?php if (count($prices)) ?>
+        <?php foreach ($prices as $key => $value): ?>
+            <?php
+            // Radio button is selected for the requested product qty
+
+            if ($hideRadio) {
+                if ($item->getData('qty') == $value['req_qty'] || count($prices) == 1 || $tierMatch === false) {
+                    $state = $value['selected'];
+                    if ($item->getData('qty') == $value['req_qty'] || $tierMatch === true) {
+                        // Setting price for product in totals
+                        $_quoteItems[$item->getId()]['totalQuoteprice'] = $value['quotePrice'];
+                        $_qTotals->setTotalQuotecost($_qTotals->getTotalQuotecost() + ($_quoteItems[$item->getId()]['totalQty'] * $value['quotePrice']));
+                    }
+                    $tierMatch = true;
+
+                } else {
+                    $state = $value['unselected'];
+                }
+            } else {
+                $state = "";
+                // Setting price for product in totals
+                $_quoteItems[$item->getId()]['totalQuoteprice'] = $value['quotePrice'];
+                $_qTotals->setTotalQuotecost($_qTotals->getTotalQuotecost() + ($_quoteItems[$item->getId()]['totalQty'] * $value['quotePrice']));
+            }
+            ?>
+            <div style="height:25px;"><?php echo $state . $value['value']; ?></div>
+
+        <?php endforeach; ?>
+
+    <?php endif; ?>
+</td>
+<?php /*
+<td class="a-center">
+    <?php foreach ($margins as $marginLine): ?>
+        <?php echo $marginLine; ?>
+    <?php endforeach; ?>
+</td>
+*/ ?>
+</tr>
+<?php
+$q2qKey++;
+$itemCount++;
+
+/* @var Ophirah_Qquoteadv_Model_Quotetotal */
+$_qTotals->setTotalItems($_quoteItems);
+
+?>
+<?php endforeach; // END $ITEM ?>
+</tr>
+</tbody>
+
+<tfoot>
+<tr>
+    <td class="a-left" colspan="1"><?php echo $this->helper('sales')->__('Total %d product(s)', $itemCount); ?></td>
+    <td class="a-right"><?php echo $this->helper('sales')->__('Subtotal:') ?></td>
+   <?php /* <td class="a-center"><strong><?php echo Mage::helper('core')->formatPrice($_qTotals->getTotalCost()); ?></strong>
+    </td>*/ ?>
+    <td class="a-center"><strong><?php echo Mage::helper('core')->formatPrice($_qTotals->getTotalOrgcost()); ?></strong>
+    </td>
+    <td class="a-center"><strong><?php echo $_qTotals->getTotalQty(); ?></strong></td>
+   <td class="a-center">
+        <strong><?php echo Mage::helper('core')->formatPrice($_qTotals->getTotalQuotecost()); ?></strong></td>
+<?php /*     
+    <td class="a-center"><?php echo $_qTotals->getTotalGPMarginCalculated(); ?></td>
+*/ ?>
+
+    <?php
+    // check for salesrules
+    if ($quoteModel->getData('salesrule') > 0) {
+        $salesruleId = $quoteModel->getData('salesrule');
+    } else {
+        $salesruleId = false;
+    }
+    // apply salesrul and calculate Quote totals
+    $_qTotals->applyDiscount($salesruleId, $_qTotals->getTotalQuotecost());
+    $_qTotals->setBasicQuoteTotals();
+    $_qTotals->updateTotals($quoteModel->getData('salesrule'));
+    $_qTotals->setCollectedTotals($quoteModel->getTotalsArray(true));
+    $quoteModel->setQuoteTotals($_qTotals->getTotalQuoteTotal());
+    ?>
+</tr>
+<tfoot>
+
+</table>
+</div>
+<?php
+
+?>
+</div>
+</fieldset>
+<div class="item_barBottom">
+<?php /*
+    <small class="custom_note">
+        <?php echo " * - " . $customPriceNote; ?>
+    </small>
+*/ ?>
+    <div id="updateButton">
+        <div class="a-right" id="btn_updateGrey">
+            <?php echo $this->getUpdateTotalButton('disabled')->_toHtml(); ?>
+        </div>
+        <div class="a-right" id="btn_updateTotal" style="display: none;">
+            <?php echo $this->getUpdateTotalButton()->_toHtml(); ?>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<form id="frmPromt" action="<?php echo $this->getUrl('*/*/addQtyField') ?>">
+    <input type="hidden" name="request_qty" id="request_qty"/>
+    <input type="hidden" name="quote_product_id" id="quote_product_id"/>
+    <input type="hidden" name="quoteadv_id" id="quoteadv_id"
+           value="<?php echo $this->getRequest()->getParam('id'); ?>"/>
+</form>
+
+<script>
+    function updateTotal() {
+        $('btn_updateTotal').show();
+        $('btn_updateGrey').hide();
+    }
+
+    function typeQty(quote_product_id) {
+        var msg = "<?php echo $this->__("Add new Qty") ?>";
+        var qty = prompt(msg, "1");
+        if (qty != null && qty != "") {
+            $('quote_product_id').value = quote_product_id;
+            $('request_qty').value = qty;
+            $('frmPromt').submit();
+            $('loading-mask').show();
+        } else {
+            $('quote_product_id').value = '';
+            $('request_qty').value = '';
+
+            return false;
+        }
+    }
+
+    function parsePrice(price) {
+        // Replace none integers from string with ''
+        price = price.replace(/^\D+/g, '');
+        price = price.trim();
+
+        if (price.substr(price.length - 3, 1) == ',') {
+            price = price.replace(/\./g, '');
+            price = price.replace(/\,/g, '.');
+        }
+        else if (price.substr(price.length - 3, 1) == '.') {
+            price = price.replace(/\,/g, '')
+        }
+
+        return parseFloat(price);
+    }
+
+    Element.addMethods({
+        getInnerText: function (element) {
+            element = $(element);
+            return element.textContent && !window.opera ? element.textContent
+                : element.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g, ' ');
+        }
+    });
+
+    document.observe("dom:loaded", function () {
+        // initially hide all containers for tab content
+        $$('.proposalprice').each(function (element) {
+
+            var parentTable = element.up('tr');
+            var costElement = parentTable.down('.price-cost');
+            var originalElement = parentTable.down('.price-original');
+
+            var originalPrice = parsePrice(costElement.getInnerText());
+
+            if (isNaN(originalPrice) || Math.round(originalPrice * 100) == 0) {
+                originalPrice = parsePrice(originalElement.getInnerText());
+            }
+
+            var marginElement = $('margin-' + element.id.substr(6));
+            var calculate = function () {
+                newPrice = $F(element).replace(/\,/g, '.');
+                newPrice = parseFloat(newPrice);
+
+                // Formula for Gross profit [Default]
+                marginElement.update(Math.round(((newPrice - originalPrice) / newPrice ) * 100) + ' %');
+            };
+
+            element.observe('keyup', calculate);
+            calculate();
+        });
+    });
+
+
+</script>
+
+<?php
+/*  ============================
+ *  CRM MODULE EDITED CODE START
+ *  ============================
+ */
+// Check for Cart2Quote CRMaddon module and if enabled
+(Mage::getStoreConfig('crmaddon/general/enabled') == 1) ? $crmaddon = true : $crmaddon = false;
+?>
+
+<?php if ($crmaddon === true): ?>
+    <div id="crmaddon_container">
+        <div class="box-left">
+
+        </div>
+        <?php /*
+        <div class="crmaddon_history">
+            <!-- File upload section -->
+            <?php include('details/file_load_information.phtml'); ?>
+            <!-- CRM Addon section-->
+            <?php include('crmaddon/crmaddon_history.phtml'); ?>
+        </div>
+		*/ ?>
+        <div class="crmaddon_wrapper">
+            <div style="min-width: 940px; width: auto;">
+                <div class="box-right" id="discount" style="min-width: 450px;">
+                    <?php include('details/discount.phtml'); ?>
+                </div>
+                <div class="box-left" style="min-width: 450px;">
+
+                    <?php
+                    // BETA FEATURE
+                    if ($helper->betaIsEnabled($quoteModel->getData('store_id'))):
+                        ?>
+                        <!-- Shipping section -->
+                        <?php include('details/shipping_proposal.phtml'); ?>
+                    <?php else: ?>
+                        <!-- Shipping section -->
+                        <?php include('details/shipping_proposal_old.phtml'); ?>
+                    <?php endif; // END BETA FEATURE ?>
+
+                </div>
+
+                <div class="box-right">
+                    <!-- Quote Totals section -->
+                    <?php include('details/quote_totals.phtml'); ?>
+                    <?php /*
+                    <small class="total_note">
+                        <?php echo " * - " . $costPriceNote; ?>
+                    </small>
+					*/ ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php else: ?>
+
+    <div style="min-width: 940px; width: auto;">
+        <div class="box-left" style="min-width: 450px;">
+
+            <?php
+            // BETA FEATURE
+            if ($helper->betaIsEnabled($quoteModel->getData('store_id'))):
+                ?>
+                <!-- Shipping section -->
+                <?php include('details/shipping_proposal.phtml'); ?>
+            <?php else: ?>
+                <!-- Shipping section -->
+                <?php include('details/shipping_proposal_old.phtml'); ?>
+            <?php endif; // END BETA FEATURE ?>
+
+            <!--File upload section-->
+            <?php //include('details/file_load_information.phtml'); ?>
+        </div>
+        <div class="box-right" id="discount" style="min-width: 450px;">
+            <?php include('details/discount.phtml'); ?>
+        </div>
+        <div class="box-right">
+            <!-- Quote Totals section -->
+            <?php include('details/quote_totals.phtml'); ?>
+            <?php /*
+            <small class="total_note">
+                <?php echo " * - " . $costPriceNote; ?>
+            </small>
+			*/ ?>
+        </div>
+    </div>
+    <br/>
+    <div>
+
+    </div>
+
+<?php endif;
+/*  ============================
+ *  CRM MODULE EDITED CODE END
+ *  ============================
+ */
+?>
+<script>
+    function showMsg() {
+        msg = '<?php echo $this->__("First save this Quotation"); ?>';
+        alert(msg);
+    }
+
+    function isCheckRadio() {
+        checkedRadio = false;
+        $$('#edit_form .rbt').each(function (item) {
+                if (item.checked == true) {
+                    str = item.value;
+                    if (str.length > 0) {
+                        checkedRadio = true;
+                        throw $break;
+                    }
+                }
+            }
+        );
+
+        if (!checkedRadio) {
+            msg = '<?php echo $this->__("Select one Qty per product. (When editing this product you will be able to re-enter the extra tiers in this screen.)") ?>';
+            alert(msg);
+        }
+        return checkedRadio;
+    }
+
+</script>
+<div class="clear"></div>
+
+</div>
+</div>
+
+<div id="loading-mask" style="display:none">
+    <p class="loader" id="loading_mask_loader"><img src="<?php echo $this->getSkinUrl('images/ajax-loader-tr.gif') ?>"
+                                                    alt="<?php echo Mage::helper('adminhtml')->__('Loading...') ?>"/><br/><?php echo Mage::helper('adminhtml')->__('Please wait...') ?>
+    </p>
+</div>

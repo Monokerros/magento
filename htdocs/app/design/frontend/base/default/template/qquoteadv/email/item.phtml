@@ -1,0 +1,180 @@
+<?php $item = $this->getItem(); ?>
+<?php $product = Mage::getModel('catalog/product')->load($item->getProductId()); ?>
+
+<?php
+// set the currency for this quote
+$_quote = Mage::getModel('qquoteadv/qqadvcustomer')->load($item->getQuoteId());
+$currency = $_quote->getData('currency');
+$currentCurrencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
+Mage::app()->getStore()->setCurrentCurrencyCode($currency);
+
+$reqData = $this->getRequestedProductData($item->getId(), $item->getQuoteId());
+$aQty = $reqData['aQty'];
+$prices = $reqData['ownerPrices'];
+$merge = array_combine($aQty, $prices);
+$merge_tier = $merge;
+// minimal items in array for showing tier options
+// use 1 by default
+$min_tie_count = 0;
+// when unset used, set $min_tie_count to 0
+unset($merge_tier[$item->getData('qty')]);
+// Show item price
+$showPrice = ($_quote->getData('itemprice') == 1) ? true : false;
+$itemPriceReplace = ' ';
+$rowTotalReplace = '--';
+
+?>
+<?php if ($product->getTypeId() == 'bundle' || $product->getTypeId() == 'configurable' || $product->getTypeId() == 'simple' || $product->getTypeId() == 'virtual'): ?>
+    <tr>
+        <td align="left" valign="center" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <img src="<?php echo $item->getItemPicture($product, 75, false); ?>" alt="<?php echo $item->getName(); ?>"
+                 width="<?php echo $item->imgSize->getData('width') ?>"/>
+        </td>
+        <td align="left" valign="top" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <strong><?php echo $this->htmlEscape($product->getName()) ?></strong>
+            <?php
+            $product->setStoreId($item->getStoreId() ? $item->getStoreId() : 1);
+            $quoteByProduct = Mage::helper('qquoteadv')->getQuoteItem($product, $item->getAttribute());
+            foreach ($quoteByProduct->getAllItems() as $_unit) {
+                if ($_unit->getProductId() == $product->getId()) {
+                    echo $this->getItemHtml($_unit);
+                }
+            }
+            ?>
+        </td>
+        <td align="left" valign="top" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <div style="height:25px;"><?php echo $this->htmlEscape($product->getSku()); ?></div>
+            <?php
+            /*  For Tier comments
+                if (count($merge_tier) > $min_tie_count): ?>    
+                <?php foreach ($merge_tier as $key => $value):?>
+                    <?php if($key == $item->getData('qty')):?>
+                        <?php $tierMsg = Mage::helper('qquoteadv')->__('Tier selected'); $color=333; ?>
+                    <?php else:?>
+                        <?php $tierMsg = Mage::helper('qquoteadv')->__('Other Qty'); $color=666; ?>
+                    <?php endif;?>
+                    <div style="height:20px; color:#<?php echo $color;?>; font-style: italic; font-size: 80%;" align="right"><?php echo $tierMsg; ?></div>
+                <?php endforeach; ?>
+            <?php endif; */
+            ?>
+        </td>
+        <td align="center" valign="top" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <div style="height:25px;" align="center"><?php echo $item->getData('qty'); ?></div>
+            <?php if (count($merge_tier) > $min_tie_count): ?>
+                <?php foreach ($merge_tier as $key => $value): ?>
+                    <?php if ($key == $item->getData('qty')) {
+                        $selected = "*";
+                        $color = 333;
+                    } else {
+                        $selected = "";
+                        $color = 666;
+                    } ?>
+                    <div style="height:20px; color:#<?php echo $color; ?>; font-style: italic; font-size: 80%;"
+                         align="center"><?php echo $key . $selected; ?></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </td>
+        <?php if (!$this->isSetAutoProposal()): ?>
+            <td style="border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+        <?php else: ?>
+            <?php $itemPrice = $merge[$item->getData('qty')]; ?>
+            <td align="center" valign="top" style="padding:3px 9px;  border-bottom:1px dotted #CCCCCC;">
+                <?php $price = ($showPrice) ? Mage::helper('core')->formatPrice($itemPrice, true, false) : $itemPriceReplace; ?>
+                <div style="height:25px;" align="right"><?php echo $price; ?></div>
+                <?php if (count($merge_tier) > $min_tie_count): ?>
+                    <?php foreach ($merge_tier as $key => $value): ?>
+                        <?php if ($key == $item->getData('qty')) {
+                            $color = 333;
+                        } else {
+                            $color = 666;
+                        } ?>
+                        <div style="height:20px; color:#<?php echo $color; ?>; font-style: italic; font-size: 80%;"
+                             align="right"><?php echo ($showPrice) ? Mage::helper('core')->formatPrice($value, true, false) : $itemPriceReplace; ?></div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </td>
+            <td align="right" valign="top" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+                <?php $total = ($showPrice) ? Mage::helper('core')->formatPrice($item->getData('qty') * $itemPrice, true, false) : $rowTotalReplace; ?>
+                <div style="height:25px; font-weight: bold;" align="right"><?php echo $total; ?></div>
+                <?php if (count($merge_tier) > $min_tie_count): ?>
+                    <?php foreach ($merge_tier as $qty => $price): ?>
+                        <?php $total = ($showPrice) ? Mage::helper('core')->formatPrice($qty * $price, true, false) : $rowTotalReplace; ?>
+                        <?php if ($qty == $item->getData('qty')) {
+                            $color = 333;
+                        } else {
+                            $color = 666;
+                        } ?>
+                        <div style="height:20px; color:#<?php echo $color; ?>; font-style: italic; font-size: 80%;"
+                             align="right"><?php echo $total; ?></div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </td>
+        <?php endif; ?>
+    </tr>
+<?php else: ?>
+
+    <tr>
+        <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <strong style="font-size:11px;"><?php echo $this->htmlEscape($product->getName()) ?></strong>
+
+            <?php  $superAttribute = Mage::helper('qquoteadv')->getSimpleOptions($product, unserialize($item->getAttribute()));
+            if ($superAttribute):
+                echo '<dl style="margin:0; padding:0;">';
+                foreach ($superAttribute as $option => $value): ?>
+                    <dt><strong><em><?php echo $option ?></em></strong></dt>
+                    <dd style="margin:0; padding:0 0 0 9px;">
+                        <?php echo (!empty($value)) ? $value : nl2br($this->escapeHtml($value)) ?>
+                    </dd>
+                <?php endforeach;
+                echo '</dl>';
+            endif; ?>
+        </td>
+        <td align="left" valign="top"
+            style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $this->htmlEscape($product->getSku($this)) ?></td>
+        <td align="center" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <?php if (count($aQty)): ?>
+                <?php foreach ($aQty as $key => $value): ?>
+                    <div style="height:25px; color:#333;" align="center"><?php echo $value; ?></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </td>
+        <?php if (!$this->isSetAutoProposal()): ?>
+            <td style="border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+        <?php else: ?>
+            <td align="center" valign="top" style="padding:3px 9px;  border-bottom:1px dotted #CCCCCC;">
+                <?php if (count($prices)): ?>
+                    <?php foreach ($prices as $key => $value): ?>
+                        <div
+                            style="height:25px;"><?php echo ($showPrice) ? Mage::helper('checkout')->formatPrice($value) : $itemPriceReplace; ?></div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </td>
+
+            <?php $merge = array_combine($aQty, $prices); ?>
+            <td align="right" valign="top" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+                <?php foreach ($merge as $qty => $price): ?>
+                    <?php $total = ($showPrice) ? Mage::helper('checkout')->formatPrice($qty * $price) : $rowTotalReplace; ?>
+                    <div style="height:25px;"><?php echo $total; ?></div>
+                <?php endforeach; ?>
+            </td>
+        <?php endif; ?>
+    </tr>
+<?php  endif; ?>
+
+<?php $clientRequest = $item->getClientRequest(); ?>
+<?php if (is_string($clientRequest) and urlencode($clientRequest) == "%C2%A0") $clientRequest = NULL; //for some reason a space is returned if more then one clientrequest in quote  ?>
+<?php if ($clientRequest): ?>
+    <tr>
+        <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <strong style="font-size:11px;">Notes with Product:</strong>
+        </td>
+        <td colspan="2" align="left" valign="top"
+            style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo nl2br($item->getClientRequest()) ?></td>
+        <td style="border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+
+        <?php if ($this->isSetAutoProposal()): ?>
+            <td style="border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+        <?php endif; ?>
+    </tr>
+<?php endif; ?>
+<?php Mage::app()->getStore()->setCurrentCurrencyCode($currentCurrencyCode); ?>

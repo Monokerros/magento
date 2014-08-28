@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <sales translate="title" module="sales">
+            <title>Sales</title>
+            <children>
+                <qquoteadv translate="title" module="qquoteadv">
+                    <title>Quotations</title>
+                    <sort_order>70</sort_order>
+                    <action>adminhtml/qquoteadv</action>
+                </qquoteadv>
+            </children>
+        </sales>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow everything</title>
+            </all>
+            <admin>
+                <children>
+                    <sales>
+                        <children>
+                            <qquoteadv translate="title">
+                                <title>Cart2Quote</title>
+                                <children>
+                                    <salesrep translate="title">
+                                        <title>Change sales representative</title>
+                                    </salesrep>
+                                    <actions translate="title">
+                                        <title>Actions</title>
+                                        <children>
+                                            <delete translate="title">
+                                                <title>Delete Quote</title>
+                                            </delete>
+                                        </children>
+                                    </actions>
+                                </children>
+                            </qquoteadv>
+                        </children>
+                    </sales>
+                </children>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <qquoteadv translate="title">
+                                        <title>Cart2Quote</title>
+                                    </qquoteadv>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,52 @@
+<?php
+$status = $quoteModel->getData('status');
+
+$btnCreateOrder = $this->getLayout()->createBlock('adminhtml/widget_button');
+$btnCreateOrder->setLabel($this->__('Create Order'));
+$btnCreateOrder->setClass('save');
+
+/* DEPRECATED //
+if ( $status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL || $status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL_SAVED ) {
+*/
+$onclick = "if(isCheckRadio()){ $('redirect2neworder').value=1; $('loading-mask').show(); save(); }else{ return false;}";
+/*
+} else {
+	$btnCreateOrder->setClass('disabled');
+    if ( $status == Ophirah_Qquoteadv_Model_Status::STATUS_ORDERED || $status == Ophirah_Qquoteadv_Model_Status::STATUS_CONFIRMED ) { 
+       $onclick = 'return false;';	
+    }else{
+      $onclick = 'showMsg(); return false;';	
+    }
+}
+ */
+$btnCreateOrder->setOnclick($onclick);
+?>
+
+<?php
+
+$button = $this->getLayout()->createBlock('adminhtml/widget_button');
+// Check if quote is allowed for negative profit
+$profit = (Mage::getStoreConfig('qquoteadv/general/profit', $quoteModel->getData('store_id')) == 1) ? true : false;
+if ($quoteModel->getData('no_profit') == 1 && $profit === false) {
+    $button->setLabel($this->__('No profit, increase Price(s)'));
+} else {
+    $button->setLabel($this->__('Submit Quote'));
+}
+$button->setClass('save');
+
+if ($status == Ophirah_Qquoteadv_Model_Status::STATUS_ORDERED ||
+    $status == Ophirah_Qquoteadv_Model_Status::STATUS_CONFIRMED ||
+    $status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL_SAVED ||
+    ($quoteModel->getData('no_profit') == 1 && $profit === false)
+) {
+    $button->setClass('disabled');
+    $button->setOnclick("return false;");
+} else {
+    $onclick = "$('loading-mask').show(); if(checkUploadTitle()) { saveAndContinueEdit(); }";
+    $button->setClass();
+    $button->setOnclick($onclick);
+}
+?>
+
+<?php echo $button->_toHtml() . '&nbsp;&nbsp;' . $btnCreateOrder->_toHtml(); ?>
+

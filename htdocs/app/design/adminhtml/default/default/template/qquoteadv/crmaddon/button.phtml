@@ -1,0 +1,22 @@
+<?php
+// CRM Send button
+$button = $this->getLayout()->createBlock('adminhtml/widget_button');
+if (!isset($createHash)) {
+    $createHash = null;
+}
+if (!Mage::helper('qquoteadv')->validLicense('CRMaddon', $createHash)) {
+    $class = 'disabled';
+    $button->setOnclick("event.preventDefault();");
+} else {
+    $class = 'save';
+    $onclick = "$('loading-mask').show(); sendMessage();";
+    $button->setOnclick($onclick);
+}
+$button->setLabel($this->__('Submit Comment'));
+$button->setClass($class);
+?>
+
+<fieldset>
+    <div class="crm_sentMsg"></div>
+    <?php echo $button->_toHtml(); ?>
+</fieldset>

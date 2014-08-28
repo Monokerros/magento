@@ -1,0 +1,52 @@
+<script>
+    document.observe('dom:loaded', function () {
+
+        var c2qOrder = document.getElementById('c2qOrder');
+        var c2qQuote = document.getElementById('c2qQuote');
+
+        if (c2qOrder && c2qOrder.addEventListener)
+            c2qOrder.addEventListener('click', quoteRedirect, false);
+
+        if (c2qQuote && c2qQuote.addEventListener)
+            c2qQuote.addEventListener('click', orderRedirect, false);
+
+
+        function quoteRedirect(e) {
+            window.location = "<?php echo Mage::getUrl('checkout/cart/'); ?>"
+        }
+
+        function orderRedirect(e) {
+            window.location = "<?php echo Mage::getUrl('qquoteadv/index/'); ?>"
+        }
+
+    });
+</script>
+<?php $isActiveQuote = $this->isActiveQuote(); ?>
+
+<?php if ($this->getShowOrderReferences()) : ?>
+    <div>
+        <ol class="c2q">
+            <li class="section allow <?php if (!$isActiveQuote) echo 'active'; ?>" id="c2qOrder">
+                <div class="tab-title">
+                    <span class="numeration">1</span>
+
+                    <h2><?php echo Mage::helper('customer')->__('Shopping Cart'); ?></h2>
+                    <a href="<?php echo Mage::getUrl('checkout/cart/'); ?>" onclick="saveProductComment();"><?php echo Mage::helper('customer')->__('Shopping Cart'); ?></a>
+                </div>
+            </li>
+            <li class="section allow <?php if ($isActiveQuote) echo 'active'; ?>" id="c2qQuote">
+                <div class="tab-title">
+                    <span class="numeration">2</span>
+
+                    <h2><?php echo $this->helper('qquoteadv')->__('Request for Quote') ?></h2>
+                    <a href="<?php echo Mage::getUrl('qquoteadv/index/'); ?>"><?php echo $this->helper('qquoteadv')->__('Request for Quote') ?></a>
+                </div>
+            </li>
+        </ol>
+    </div>
+<?php endif; ?>
+
+
+
+<div class="clear"><!-- --></div>
+

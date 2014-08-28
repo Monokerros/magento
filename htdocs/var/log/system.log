@@ -1,0 +1,239 @@
+2014-08-28T00:24:41+00:00 ERR (3): Notice: Undefined variable: enabledTable  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Catalog\Model\Resource\Category\Indexer\Product.php on line 941
+2014-08-28T01:03:00+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:00+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:00+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:00+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:00+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:00+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:00+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:00+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:00+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:06+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:06+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:06+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:06+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:06+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:06+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:06+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:06+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:06+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:12+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:12+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:12+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:12+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:12+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:12+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:12+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:12+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:12+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:16+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:16+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:16+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:16+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:16+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:16+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:16+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:16+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:16+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:42+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:42+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:42+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:42+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:42+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:42+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:42+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:42+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:42+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:46+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:46+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:46+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:46+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:46+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:46+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:46+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:46+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:46+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:50+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:50+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:50+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:50+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:50+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:50+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:50+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:50+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:03:50+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:09+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:09+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:09+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:09+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:09+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:09+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:09+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:09+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:09+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:12+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:12+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:12+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:12+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:12+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:12+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:12+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:12+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:12+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:30+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:30+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:30+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:30+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:30+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:30+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:30+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:30+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:30+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:32+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:32+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:32+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:32+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:32+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:32+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:32+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:32+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:04:32+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:05:40+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 6: parser error : Opening and ending tag mismatch: Magentotutorial_Productview line 3 and modules  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:05:40+00:00 ERR (3): Warning: simplexml_load_string(): 	&lt;/modules&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:05:40+00:00 ERR (3): Warning: simplexml_load_string(): 	          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:05:40+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Opening and ending tag mismatch: modules line 2 and config  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:05:40+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:05:40+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:05:40+00:00 ERR (3): Warning: simplexml_load_string(): Entity: line 7: parser error : Premature end of data in tag config line 1  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:05:40+00:00 ERR (3): Warning: simplexml_load_string(): &lt;/config&gt;  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:05:40+00:00 ERR (3): Warning: simplexml_load_string():          ^  in C:\xampp\apps\magento\htdocs\lib\Varien\Simplexml\Config.php on line 510
+2014-08-28T01:18:49+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T01:18:49+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T01:18:49+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T01:18:49+00:00 ERR (3): Recoverable Error: Object of class Mage_Catalog_Model_Product could not be converted to string  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 7
+2014-08-28T01:19:38+00:00 ERR (3): Recoverable Error: Object of class Mage_Catalog_Model_Resource_Product_Collection could not be converted to string  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 7
+2014-08-28T01:19:57+00:00 DEBUG (7): HEADERS ALREADY SENT: <pre>[0] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:52
+[1] C:\xampp\apps\magento\htdocs\lib\Zend\Controller\Response\Abstract.php:768
+[2] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:84
+[3] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Varien\Front.php:184
+[4] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\App.php:354
+[5] C:\xampp\apps\magento\htdocs\app\Mage.php:684
+[6] C:\xampp\apps\magento\htdocs\index.php:87
+</pre>
+2014-08-28T01:25:54+00:00 ERR (3): Notice: Use of undefined constant r - assumed 'r'  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 5
+2014-08-28T01:25:54+00:00 ERR (3): Warning: Division by zero  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 5
+2014-08-28T01:25:54+00:00 ERR (3): Notice: Use of undefined constant n - assumed 'n'  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 5
+2014-08-28T01:25:54+00:00 ERR (3): Warning: Division by zero  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 5
+2014-08-28T01:25:54+00:00 DEBUG (7): HEADERS ALREADY SENT: <pre>[0] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:52
+[1] C:\xampp\apps\magento\htdocs\lib\Zend\Controller\Response\Abstract.php:768
+[2] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:84
+[3] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Varien\Front.php:184
+[4] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\App.php:354
+[5] C:\xampp\apps\magento\htdocs\app\Mage.php:684
+[6] C:\xampp\apps\magento\htdocs\index.php:87
+</pre>
+2014-08-28T01:29:22+00:00 ERR (3): Notice: Use of undefined constant r - assumed 'r'  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6
+2014-08-28T01:29:22+00:00 ERR (3): Warning: Division by zero  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6
+2014-08-28T01:29:22+00:00 ERR (3): Notice: Use of undefined constant n - assumed 'n'  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6
+2014-08-28T01:29:22+00:00 ERR (3): Warning: Division by zero  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6
+2014-08-28T01:29:32+00:00 ERR (3): Notice: Use of undefined constant r - assumed 'r'  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6
+2014-08-28T01:29:32+00:00 ERR (3): Warning: Division by zero  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6
+2014-08-28T01:29:32+00:00 ERR (3): Notice: Use of undefined constant n - assumed 'n'  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6
+2014-08-28T01:29:32+00:00 ERR (3): Warning: Division by zero  in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6
+2014-08-28T01:37:00+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T01:37:00+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T01:37:00+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T01:40:09+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T01:40:09+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T01:40:09+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T01:43:36+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T01:43:36+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T01:43:36+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T01:43:50+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T01:43:50+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T01:43:50+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T01:43:50+00:00 DEBUG (7): HEADERS ALREADY SENT: <pre>[0] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:52
+[1] C:\xampp\apps\magento\htdocs\lib\Zend\Controller\Response\Abstract.php:768
+[2] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:84
+[3] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Varien\Front.php:184
+[4] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\App.php:354
+[5] C:\xampp\apps\magento\htdocs\app\Mage.php:684
+[6] C:\xampp\apps\magento\htdocs\index.php:87
+</pre>
+2014-08-28T01:46:43+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T01:46:43+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T01:46:43+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T01:46:43+00:00 DEBUG (7): HEADERS ALREADY SENT: <pre>[0] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:52
+[1] C:\xampp\apps\magento\htdocs\lib\Zend\Controller\Response\Abstract.php:768
+[2] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:84
+[3] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Varien\Front.php:184
+[4] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\App.php:354
+[5] C:\xampp\apps\magento\htdocs\app\Mage.php:684
+[6] C:\xampp\apps\magento\htdocs\index.php:87
+</pre>
+2014-08-28T01:49:55+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T01:49:55+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T01:49:55+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T01:49:56+00:00 DEBUG (7): HEADERS ALREADY SENT: <pre>[0] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:52
+[1] C:\xampp\apps\magento\htdocs\lib\Zend\Controller\Response\Abstract.php:768
+[2] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:84
+[3] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Varien\Front.php:184
+[4] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\App.php:354
+[5] C:\xampp\apps\magento\htdocs\app\Mage.php:684
+[6] C:\xampp\apps\magento\htdocs\index.php:87
+</pre>
+2014-08-28T01:51:47+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T01:51:47+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T01:51:47+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T01:51:48+00:00 DEBUG (7): HEADERS ALREADY SENT: <pre>[0] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:52
+[1] C:\xampp\apps\magento\htdocs\lib\Zend\Controller\Response\Abstract.php:768
+[2] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:84
+[3] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Varien\Front.php:184
+[4] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\App.php:354
+[5] C:\xampp\apps\magento\htdocs\app\Mage.php:684
+[6] C:\xampp\apps\magento\htdocs\index.php:87
+</pre>
+2014-08-28T01:51:55+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T01:51:55+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T01:51:55+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T01:51:55+00:00 DEBUG (7): HEADERS ALREADY SENT: <pre>[0] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:52
+[1] C:\xampp\apps\magento\htdocs\lib\Zend\Controller\Response\Abstract.php:768
+[2] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:84
+[3] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Varien\Front.php:184
+[4] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\App.php:354
+[5] C:\xampp\apps\magento\htdocs\app\Mage.php:684
+[6] C:\xampp\apps\magento\htdocs\index.php:87
+</pre>
+2014-08-28T01:53:26+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T01:53:26+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T01:53:26+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T01:53:26+00:00 DEBUG (7): HEADERS ALREADY SENT: <pre>[0] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:52
+[1] C:\xampp\apps\magento\htdocs\lib\Zend\Controller\Response\Abstract.php:768
+[2] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:84
+[3] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Varien\Front.php:184
+[4] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\App.php:354
+[5] C:\xampp\apps\magento\htdocs\app\Mage.php:684
+[6] C:\xampp\apps\magento\htdocs\index.php:87
+</pre>
+2014-08-28T01:59:53+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T01:59:53+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T01:59:53+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T01:59:53+00:00 DEBUG (7): HEADERS ALREADY SENT: <pre>[0] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:52
+[1] C:\xampp\apps\magento\htdocs\lib\Zend\Controller\Response\Abstract.php:768
+[2] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:84
+[3] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Varien\Front.php:184
+[4] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\App.php:354
+[5] C:\xampp\apps\magento\htdocs\app\Mage.php:684
+[6] C:\xampp\apps\magento\htdocs\index.php:87
+</pre>
+2014-08-28T04:00:25+00:00 ERR (3): Warning: Missing argument 1 for Mage_Core_Model_Abstract::load(), called in C:\xampp\apps\magento\htdocs\app\code\local\Magentotutorial\Productviewer\controllers\IndexController.php on line 6 and defined  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 222
+2014-08-28T04:00:25+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 224
+2014-08-28T04:00:26+00:00 ERR (3): Notice: Undefined variable: id  in C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\Abstract.php on line 225
+2014-08-28T04:00:26+00:00 DEBUG (7): HEADERS ALREADY SENT: <pre>[0] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:52
+[1] C:\xampp\apps\magento\htdocs\lib\Zend\Controller\Response\Abstract.php:768
+[2] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Response\Http.php:84
+[3] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Controller\Varien\Front.php:184
+[4] C:\xampp\apps\magento\htdocs\app\code\core\Mage\Core\Model\App.php:354
+[5] C:\xampp\apps\magento\htdocs\app\Mage.php:684
+[6] C:\xampp\apps\magento\htdocs\index.php:87
+</pre>

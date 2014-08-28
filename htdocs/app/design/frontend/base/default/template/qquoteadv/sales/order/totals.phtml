@@ -1,0 +1,109 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var $this Mage_Sales_Block_Order_Totals
+ * @see Mage_Sales_Block_Order_Totals
+ */
+?>
+
+<?php
+
+$codes = array();
+$defaultOrder = array('subtotal' => 10,
+    'discount' => 20,
+    'shipping' => 30,
+    'tax' => 40,
+    'weee' => 50,
+    'grand_total' => 100
+);
+
+// display shipping before
+$ship_before = "tax";
+
+foreach ($this->getTotals() as $_code) {
+    if (!Mage::getStoreConfig('sales/totals_sort/' . $_code->getCode())) {
+        if (isset($defaultOrder[$_code->getCode()])) {
+            $sortOrder = $defaultOrder[$_code->getCode()];
+        } else {
+            $sortOrder++;
+        }
+    } else {
+        $sortOrder = Mage::getStoreConfig('sales/totals_sort/' . $_code->getCode());
+    }
+
+    if ($_code->getCode() != "base_grandtotal") {
+        if (!array_key_exists($sortOrder, $codes)) {
+            $codes[$sortOrder] = $_code;
+        } else {
+            $codes[] = $_code;
+        }
+    }
+}
+
+// Sorting Totals
+ksort($codes);
+
+$_quote = Mage::registry('qquoteadv');
+if ($_quote == null and Mage::registry('current_quote')) $_quote = Mage::registry('current_quote');
+?>
+
+<?php foreach ($codes as $_code => $_total): ?>
+    <?php $current_code = $_total->getCode(); ?>
+    <?php if ($_quote->getShippingType() == "" && !in_array("shipping", $codes) && $current_code == $ship_before): ?>
+        <?php $shippingLabel = $this->__('Shipping & Handling'); ?>
+        <tr class="shipping">
+            <td <?php echo $this->getLabelProperties() ?>>
+                <?php echo $this->escapeHtml($shippingLabel); ?>
+            </td>
+            <td <?php echo $this->getValueProperties() ?>>
+                <a href="<?php echo Mage::helper('qquoteadv')->getAutoLoginUrl($_quote); ?>"><?php echo $this->__('Select in Checkout') ?></a>
+            </td>
+        </tr>
+    <?php endif; ?>
+
+    <?php if (($_quote->getShippingType() == "" && $current_code == "shipping") || $current_code == "base_grandtotal") continue; ?>
+
+    <?php if ($_total->getBlockName()): ?>
+        <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
+    <?php else: ?>
+        <tr class="<?php echo $current_code ?>">
+            <td <?php echo $this->getLabelProperties() ?>>
+                <?php if ($_total->getStrong()): ?>
+                    <strong><?php echo $this->escapeHtml($_total->getLabel()); ?></strong>
+                <?php else: ?>
+                    <?php echo $this->escapeHtml($_total->getLabel()); ?>
+                <?php endif ?>
+            </td>
+            <td <?php echo $this->getValueProperties() ?>>
+                <?php if ($_total->getStrong()): ?>
+                    <strong><?php echo $this->formatValue($_total) ?></strong>
+                <?php else: ?>
+                    <?php echo $this->formatValue($_total) ?>
+                <?php endif ?>
+            </td>
+        </tr>
+    <?php endif ?>
+<?php endforeach ?>

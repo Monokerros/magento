@@ -1,0 +1,34 @@
+<?php $productNames = $this->getProductNames(); ?>
+<div id="lightbox1" class="leightbox">
+    <form method="post" name="switchmode" id="switchmode"
+          action="<?php echo $this->getUrl('qquoteadv/index/switch2Order', array('_secure' => true)) ?>">
+        <br/>
+
+        <div align="left" style="padding-left:45px;font-size:13px;">
+            <h1><?php echo $this->__('Move to shopping cart?') ?></h1>
+
+            <p>
+                <?php echo $this->__('This quote list contains items that cannot ordered.') ?><br/>
+                <?php echo $this->__('This item will be removed from the list if you continue:') ?>
+            </p>
+
+            <div align="left" style="padding-left:25px;font-size:12px; font-weight:bold;">
+                <ul style="list-style: square outside;"><?php foreach ($productNames as $name) {
+                        echo "<li>$name</li>";
+                    } ?></ul>
+            </div>
+        </div>
+        <div style="float:right; padding-right:50px; margin-bottom: 20px; margin-top: 20px;">
+            <button type="button" class="button" onclick="cancelMsg();$('lightbox1').hide();"
+                    title="<?php echo $this->__('Cancel Action') ?>">
+                <span><span><?php echo $this->__('Cancel Action') ?></span></span></button>
+            <button type="button" class="button" onclick="$('lightbox1').hide();$('switchmode').submit();"
+                    title="<?php echo $this->__('Continue Action') ?>">
+                <span><span><?php echo $this->__('Continue Action') ?></span></span></button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var dataForm = new VarienForm('switchmode', true);
+</script>

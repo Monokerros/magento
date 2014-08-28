@@ -1,0 +1,12 @@
+<?php
+$_cartQty = $this->getTotalQty();
+if(empty($_cartQty)) {
+    $_cartQty = 0;
+}
+?>
+
+<a href="<?php echo Mage::getUrl('qquoteadv/index/'); ?>" class="link skip-quote <?php if($_cartQty <= 0): ?> no-count<?php endif; ?>">
+    <span class="icon"></span>
+    <span class="label"><?php echo $this->__('Quote'); ?></span>
+    <span class="count"><?php echo $_cartQty; ?></span>
+</a>
